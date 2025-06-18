@@ -1,37 +1,34 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start w-full">
-        <div className="flex flex-col items-center w-full">
-          <Avatar className="w-32 h-32 mb-6">
-            <AvatarImage src="/vercel.svg" alt="Avatar" />
-            <AvatarFallback>JD</AvatarFallback>
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center gap-8">
+        <div className="relative">
+          <Avatar className="w-64 h-64">
+            <AvatarImage src="/tc1_1.jpg" alt="Avatar" />
+            <AvatarFallback>TC</AvatarFallback>
           </Avatar>
-          <Card className="w-full max-w-md flex flex-col items-center p-6">
-            <div className="text-xl font-semibold mb-2 text-center">
-              Hi, I&apos;m Jane Doe 👋
-            </div>
-            <div className="text-center text-muted-foreground mb-4">
-              Frontend Developer & UI Enthusiast
-            </div>
-            <div className="w-full flex flex-col gap-2">
-              <div className="text-sm text-muted-foreground mb-1">
-                Chat with me:
-              </div>
-              <div className="flex gap-2 w-full">
-                <Input placeholder="Type a message..." className="flex-1" />
-                <Button type="button">Send</Button>
-              </div>
-            </div>
-          </Card>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-full z-[-1] shadow-[0_0_0_8px_rgba(255,255,255,0.2)] before:content-[''] before:absolute before:inset-[-8px] before:rounded-full before:bg-[conic-gradient(from_0deg_at_50%_50%,#ff0080_0%,#7928ca_25%,#0070f3_50%,#00ffb8_75%,#ff0080_100%)] before:blur-[12px] before:opacity-60 before:z-[-2]"
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center"></footer>
+        <div className="relative w-[32rem] max-w-[32rem] group focus-within/button-enabled">
+          <textarea
+            className="w-full min-h-[120px] rounded-3xl bg-card/80 p-4 text-base shadow focus:outline-none focus:ring-2 focus:ring-primary resize-none placeholder:text-muted-foreground pr-14"
+            placeholder="What do you want to know about me?"
+          />
+          <button
+            type="button"
+            className="absolute bottom-4 right-3 bg-primary text-primary-foreground rounded-3xl p-2 flex items-center justify-center shadow hover:bg-primary/90 transition-colors text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed group-focus-within:enabled"
+            aria-label="Send"
+            disabled
+          >
+            Send
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
