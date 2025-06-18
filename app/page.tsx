@@ -14,16 +14,15 @@ export default function Home() {
             className="pointer-events-none absolute inset-0 rounded-full z-[-1] shadow-[0_0_0_8px_rgba(255,255,255,0.2)] before:content-[''] before:absolute before:inset-[-8px] before:rounded-full before:bg-[conic-gradient(from_0deg_at_50%_50%,#ff0080_0%,#7928ca_25%,#0070f3_50%,#00ffb8_75%,#ff0080_100%)] before:blur-[12px] before:opacity-60 before:z-[-2]"
           />
         </div>
-        <div className="relative w-[32rem] max-w-[32rem] group focus-within/button-enabled">
+        <div className="relative w-[32rem] max-w-[32rem]">
           <textarea
-            className="w-full min-h-[120px] rounded-3xl bg-card/80 p-4 text-base shadow focus:outline-none focus:ring-2 focus:ring-primary resize-none placeholder:text-muted-foreground pr-14"
+            className="w-full min-h-[120px] rounded-3xl bg-card/80 p-4 text-base shadow resize-none placeholder:text-muted-foreground pr-14 border-0 focus:border-0 focus:ring-0 focus:outline-none"
             placeholder="What do you want to know about me?"
           />
           <button
             type="button"
-            className="absolute bottom-4 right-3 bg-primary text-primary-foreground rounded-3xl p-2 flex items-center justify-center shadow hover:bg-primary/90 transition-colors text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed group-focus-within:enabled"
+            className="absolute bottom-4 right-3 bg-primary text-primary-foreground rounded-3xl p-2 flex items-center justify-center shadow hover:bg-primary/90 transition-colors text-xs font-semibold cursor-pointer"
             aria-label="Send"
-            disabled
           >
             Send
           </button>
