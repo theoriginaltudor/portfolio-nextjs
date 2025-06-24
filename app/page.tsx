@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import AvatarWithShadow from "@/components/ui/AvatarWithShadow";
+import AvatarWithShadow from "@/components/AvatarWithShadow";
 
 export default function Home() {
   const formRef = useRef<HTMLFormElement>(null);
