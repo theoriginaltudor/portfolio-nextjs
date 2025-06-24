@@ -1,23 +1,14 @@
 "use client";
 
 import { useRef } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AvatarWithShadow from "@/components/ui/AvatarWithShadow";
 
 export default function Home() {
   const formRef = useRef<HTMLFormElement>(null);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="flex flex-col items-center gap-8">
-        <div className="relative w-64 h-64">
-          <Avatar className="w-full h-full">
-            <AvatarImage src="/tc1_1.jpg" alt="Avatar" />
-            <AvatarFallback className="text-7xl">TC</AvatarFallback>
-          </Avatar>
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-full z-[-1] shadow-[0_0_0_8px_rgba(255,255,255,0.2)] before:content-[''] before:absolute before:inset-[-8px] before:rounded-full before:bg-[conic-gradient(from_0deg_at_50%_50%,#ff0080_0%,#7928ca_25%,#0070f3_50%,#00ffb8_75%,#ff0080_100%)] before:blur-[12px] before:opacity-60 before:z-[-2]"
-          />
-        </div>
+        <AvatarWithShadow />
         <form
           ref={formRef}
           className="relative w-[90vw] max-w-[90vw] md:w-[32rem] md:max-w-[32rem]"
