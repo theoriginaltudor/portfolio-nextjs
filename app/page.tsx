@@ -8,7 +8,9 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="flex flex-col items-center gap-8">
-        <AvatarWithShadow />
+        <div style={{ viewTransitionName: "avatar-group" }}>
+          <AvatarWithShadow />
+        </div>
         <form
           ref={formRef}
           className="relative w-[90vw] max-w-[90vw] md:w-[32rem] md:max-w-[32rem]"

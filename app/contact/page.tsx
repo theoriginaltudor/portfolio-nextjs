@@ -22,7 +22,9 @@ export default function ContactPage() {
             className="object-contain"
           />
         </div>
-        <AvatarWithShadow />
+        <div style={{ viewTransitionName: "avatar-group" }}>
+          <AvatarWithShadow />
+        </div>
         <Card className="w-[90vw] md:w-auto">
           <CardHeader>
             <CardTitle>Contact Information</CardTitle>
