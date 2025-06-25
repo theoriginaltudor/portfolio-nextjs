@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { unstable_ViewTransition as ViewTransition } from "react";
+import { NavigationMenu } from "@/components/NavigationMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ViewTransition>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <div className="flex flex-col min-h-screen">
+              <div className="w-full flex justify-end p-4">
+                <NavigationMenu />
+              </div>
+              <div className="flex-1 flex flex-col">{children}</div>
+            </div>
+          </ThemeProvider>
         </ViewTransition>
       </body>
     </html>
