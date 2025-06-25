@@ -10,7 +10,8 @@ export function NavigationMenu({ className }: { className?: string }) {
     <NavigationMenuPrimitive.Root
       className={cn("flex justify-end w-full", className)}
     >
-      <NavigationMenuPrimitive.List className="flex gap-8">
+      <NavigationMenuPrimitive.List className="flex flex-col items-center gap-6 w-full md:flex-row md:gap-8">
+        {/* On mobile: flex-col, On md+: flex-row */}
         <NavigationMenuPrimitive.Item>
           <NavigationMenuPrimitive.Link asChild>
             <Link href="/">Home</Link>

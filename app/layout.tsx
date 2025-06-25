@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { NavigationMenu } from "@/components/NavigationMenu";
+import { MobileNav } from "@/components/MobileNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,8 @@ export default function RootLayout({
           <ThemeProvider>
             <div className="flex flex-col min-h-screen">
               <div className="w-full flex justify-end p-4">
-                <NavigationMenu />
+                <NavigationMenu className="hidden md:flex" />
+                <MobileNav />
               </div>
               <div className="flex-1 flex flex-col">{children}</div>
             </div>
