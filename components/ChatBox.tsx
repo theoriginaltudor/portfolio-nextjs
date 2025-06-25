@@ -1,9 +1,35 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { handleSubmit } from "@/app/handleSubmit";
+import { useFormStatus } from "react-dom";
 
-export function ChatBox() {
+function SubmitButton({
+  onPendingChange,
+}: {
+  onPendingChange: (pending: boolean) => void;
+}) {
+  const { pending } = useFormStatus();
+  useEffect(() => {
+    onPendingChange(pending);
+  }, [pending, onPendingChange]);
+  return (
+    <button
+      type="submit"
+      className="bg-primary text-primary-foreground rounded-3xl px-4 py-2 flex items-center justify-center shadow hover:bg-primary/90 transition-colors text-xs font-semibold cursor-pointer"
+      aria-label="Send"
+      disabled={pending}
+    >
+      {pending ? "Sending..." : "Send"}
+    </button>
+  );
+}
+
+export function ChatBox({
+  onPendingChange,
+}: {
+  onPendingChange: (pending: boolean) => void;
+}) {
   const formRef = useRef<HTMLFormElement>(null);
   return (
     <form
@@ -27,13 +53,7 @@ export function ChatBox() {
           <span className="text-xs text-muted-foreground select-none pointer-events-none">
             <b>Enter</b>: send, <b>Shift+Enter</b>: newline
           </span>
-          <button
-            type="submit"
-            className="bg-primary text-primary-foreground rounded-3xl px-4 py-2 flex items-center justify-center shadow hover:bg-primary/90 transition-colors text-xs font-semibold cursor-pointer"
-            aria-label="Send"
-          >
-            Send
-          </button>
+          <SubmitButton onPendingChange={onPendingChange} />
         </div>
       </div>
     </form>
