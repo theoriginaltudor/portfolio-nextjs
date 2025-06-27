@@ -4,6 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import AvatarWithShadow from "@/components/AvatarWithShadow";
 
 const slides = [
   {
@@ -66,6 +67,12 @@ export default function ProjectPage() {
           >
             <ChevronRight className="w-5 h-5" />
           </Button>
+        </div>
+      </div>
+      {/* Fixed AvatarWithShadow in bottom right */}
+      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50">
+        <div style={{ viewTransitionName: "avatar-group" }}>
+          <AvatarWithShadow className="w-16 h-16" />
         </div>
       </div>
     </div>
