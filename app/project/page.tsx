@@ -31,9 +31,9 @@ export default function ProjectPage() {
 
   return (
     <div className="max-w-2xl mx-auto py-12 px-4 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-2">My Projects</h1>
+      <h1 className="text-3xl font-bold mb-2">Relevant work</h1>
       <p className="text-muted-foreground mb-8 text-center">
-        A showcase of my work and experiments.
+        An overview of project I worked on, showcasing my skills.
       </p>
       <div className="relative w-full max-w-lg flex flex-col items-center">
         <div className="w-full h-64 rounded-xl overflow-hidden bg-card flex items-center justify-center mb-4">
