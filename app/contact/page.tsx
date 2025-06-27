@@ -13,17 +13,25 @@ import AvatarWithShadow from "@/components/AvatarWithShadow";
 export default function ContactPage() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <div className="relative flex flex-col md:flex-row items-center justify-center gap-32 md:gap-16 p-8">
-        <div className="absolute inset-0 -z-10 hidden md:block">
-          <Image
-            src="/globe.svg"
-            alt="background globe"
-            fill
-            className="object-contain"
-          />
-        </div>
+      <div className="flex flex-col md:flex-row items-center justify-center gap-32 md:gap-8 p-8">
         <div style={{ viewTransitionName: "avatar-group" }}>
           <AvatarWithShadow />
+        </div>
+        <div className="hidden md:flex flex-col gap-20">
+          <Image
+            src="/Sketch_arrow.png"
+            alt="background sketch arrow"
+            width={250}
+            height={150}
+            className="object-contain"
+          />
+          <Image
+            src="/Sketch_arrow.png"
+            alt="background sketch arrow"
+            width={250}
+            height={150}
+            className="object-contain rotate-180 -scale-x-100"
+          />
         </div>
         <Card className="w-[90vw] md:w-auto">
           <CardHeader>
