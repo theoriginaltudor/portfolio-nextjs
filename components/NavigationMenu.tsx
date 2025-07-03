@@ -17,7 +17,6 @@ export function NavigationMenu({
       className={cn("flex justify-end w-full", className)}
     >
       <NavigationMenuPrimitive.List className="flex flex-col items-center gap-6 w-full md:flex-row md:gap-8">
-        {/* On mobile: flex-col, On md+: flex-row */}
         <NavigationMenuPrimitive.Item>
           <NavigationMenuPrimitive.Link asChild>
             <Link href="/" onClick={onNavigate}>

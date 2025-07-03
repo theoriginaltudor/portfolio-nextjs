@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import AvatarWithMessage from "@/features/contact/AvatarWithMessage";
 import ContactInfoCard from "@/features/contact/ContactInfoCard";
+import { cn } from "@/lib/utils";
 
 export default async function ContactPage({
   searchParams,
@@ -12,7 +13,12 @@ export default async function ContactPage({
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <div className="flex flex-col md:flex-row items-center justify-center gap-32 md:gap-8 p-8">
+      <div
+        className={cn(
+          "flex flex-col md:flex-row items-center justify-center p-8 md:gap-8",
+          message ? "gap-12" : "gap-20"
+        )}
+      >
         <AvatarWithMessage message={message} />
         <div className="hidden md:flex flex-col gap-20">
           <Image
