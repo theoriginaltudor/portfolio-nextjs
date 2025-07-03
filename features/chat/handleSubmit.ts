@@ -35,7 +35,7 @@ const schema = z.object({
   path: z
     .string()
     .describe(
-      "The path name to navigate to. Must be one of: 'contact', 'projects', 'project/1', 'project/2', 'project/3'."
+      "The path name to navigate to. Must be one of: 'contact', 'project' (which is for all projects), 'project/1', 'project/2', 'project/3'."
     ),
   response: z
     .string()
