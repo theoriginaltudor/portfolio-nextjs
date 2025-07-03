@@ -1,45 +1,27 @@
 "use server";
 import { redirect } from "next/navigation";
-import { google } from "@ai-sdk/google";
-import { generateObject } from "ai";
-import z from "zod";
-export async function handleSubmit(formData: FormData) {
+import { getAIRoute } from "./ai-limit/aiRoute";
+import { checkAndUpdateTokenLimit } from "./ai-limit/checkAndUpdateTokenLimit";
+import { addTokensForIP } from "./ai-limit/addTokensForIP";
+
+import { NextApiRequest } from "next"; // Add this import if not already present
+
+export async function handleSubmit(formData: FormData, req: NextApiRequest) {
+  const tokenCheck = checkAndUpdateTokenLimit(req);
+  if (tokenCheck.blocked && tokenCheck.redirectUrl) {
+    redirect(tokenCheck.redirectUrl);
+  }
+
   const message = formData.get("message")?.toString() || "";
-  const response = await getAIRoute(message);
+  const { object, tokens } = await getAIRoute(message);
+
+  // Add the actual tokens used to the IP's count
+  const addResult = addTokensForIP(req, tokens);
+  if (addResult.blocked && addResult.redirectUrl) {
+    redirect(addResult.redirectUrl);
+  }
+
   redirect(
-    `/${response.path.trimEnd()}?message=${encodeURIComponent(
-      response.response
-    )}`
+    `/${object.path.trimEnd()}?message=${encodeURIComponent(object.response)}`
   );
 }
-
-const model = google("gemini-2.0-flash");
-
-const getAIRoute = async (message: string): Promise<z.infer<typeof schema>> => {
-  const { object } = await generateObject({
-    model,
-    schema,
-    system:
-      "You're an assistant helping a user to navigate a portfolio website.",
-    messages: [
-      {
-        role: "user",
-        content: message,
-      },
-    ],
-  });
-  return object;
-};
-
-const schema = z.object({
-  path: z
-    .string()
-    .describe(
-      "The path name to navigate to. Must be one of: 'contact', 'project' (which is for all projects), 'project/1', 'project/2', 'project/3'."
-    ),
-  response: z
-    .string()
-    .describe(
-      "A short message to the user, such as: 'The information you requested can be found on this page.'"
-    ),
-});
