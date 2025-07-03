@@ -5,7 +5,13 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-export function NavigationMenu({ className }: { className?: string }) {
+export function NavigationMenu({
+  className,
+  onNavigate,
+}: {
+  className?: string;
+  onNavigate?: () => void;
+}) {
   return (
     <NavigationMenuPrimitive.Root
       className={cn("flex justify-end w-full", className)}
@@ -14,17 +20,23 @@ export function NavigationMenu({ className }: { className?: string }) {
         {/* On mobile: flex-col, On md+: flex-row */}
         <NavigationMenuPrimitive.Item>
           <NavigationMenuPrimitive.Link asChild>
-            <Link href="/">Home</Link>
+            <Link href="/" onClick={onNavigate}>
+              Home
+            </Link>
           </NavigationMenuPrimitive.Link>
         </NavigationMenuPrimitive.Item>
         <NavigationMenuPrimitive.Item>
           <NavigationMenuPrimitive.Link asChild>
-            <Link href="/project">Projects</Link>
+            <Link href="/project" onClick={onNavigate}>
+              Projects
+            </Link>
           </NavigationMenuPrimitive.Link>
         </NavigationMenuPrimitive.Item>
         <NavigationMenuPrimitive.Item>
           <NavigationMenuPrimitive.Link asChild>
-            <Link href="/contact">Contact</Link>
+            <Link href="/contact" onClick={onNavigate}>
+              Contact
+            </Link>
           </NavigationMenuPrimitive.Link>
         </NavigationMenuPrimitive.Item>
       </NavigationMenuPrimitive.List>

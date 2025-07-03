@@ -19,7 +19,10 @@ export function MobileNav() {
         <Menu className="w-7 h-7" />
       </Button>
       <Drawer open={open} onClose={() => setOpen(false)}>
-        <NavigationMenu className="flex flex-col items-center gap-6 w-full" />
+        <NavigationMenu
+          className="flex flex-col items-center gap-6 w-full"
+          onNavigate={() => setOpen(false)}
+        />
       </Drawer>
     </div>
   );
