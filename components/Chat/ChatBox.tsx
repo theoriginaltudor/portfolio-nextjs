@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { handleSubmit } from "@/app/handleSubmit";
+import { handleSubmit } from "@/components/Chat/handleSubmit";
 import { useFormStatus } from "react-dom";
 
 function SubmitButton({
