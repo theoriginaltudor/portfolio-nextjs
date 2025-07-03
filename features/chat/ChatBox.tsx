@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { handleSubmit } from "@/components/Chat/handleSubmit";
+import { handleSubmit } from "@/features/chat/handleSubmit";
 import { useFormStatus } from "react-dom";
+import { useRef, useEffect } from "react";
 
 function SubmitButton({
   onPendingChange,
