@@ -21,7 +21,6 @@ export default function Slide({ image, title, description }: SlideProps) {
         className="object-cover w-full h-full absolute inset-0 z-0"
         priority
       />
-      {/* Overlay removed */}
       <div
         className={`relative z-20 m-6 p-4 rounded-lg shadow-xl backdrop-blur-sm
           ${isDark ? "bg-black/80 text-white" : "bg-white/80 text-black"}
@@ -35,7 +34,6 @@ export default function Slide({ image, title, description }: SlideProps) {
         <h2 className="text-xl font-semibold mb-1">{title}</h2>
         <p className="text-sm text-muted-foreground text-left">{description}</p>
       </div>
-      {/* Gradient shadow fade effect */}
       <div
         className="absolute left-0 bottom-0 w-full h-32 pointer-events-none z-15"
         style={{
