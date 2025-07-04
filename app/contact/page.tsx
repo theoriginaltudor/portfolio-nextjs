@@ -12,7 +12,7 @@ export default async function ContactPage({
   const message = (await searchParams).message as string | undefined;
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen">
+    <main className="flex-1 flex flex-col items-center justify-center">
       <div
         className={cn(
           "flex flex-col md:flex-row items-center justify-center p-8 md:gap-8",

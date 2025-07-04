@@ -46,7 +46,7 @@ const slides = [
 
 export default function ProjectPage() {
   return (
-    <div className="max-w-2xl mx-auto py-12 px-4 flex flex-col items-center">
+    <div className="flex-1 max-w-2xl mx-auto py-12 px-4 flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-2">Relevant work</h1>
       <p className="text-muted-foreground mb-8 text-center">
         An overview of project I worked on, showcasing my skills.
