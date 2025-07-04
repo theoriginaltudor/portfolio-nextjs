@@ -1,29 +1,11 @@
 "use client";
 
 import { handleSubmit } from "@/features/chat/handleSubmit";
-import { useFormStatus } from "react-dom";
-import { useRef, useEffect } from "react";
 
-function SubmitButton({
-  onPendingChange,
-}: {
-  onPendingChange: (pending: boolean) => void;
-}) {
-  const { pending } = useFormStatus();
-  useEffect(() => {
-    onPendingChange(pending);
-  }, [pending, onPendingChange]);
-  return (
-    <button
-      type="submit"
-      className="bg-primary text-primary-foreground rounded-3xl px-4 py-2 flex items-center justify-center shadow hover:bg-primary/90 transition-colors text-xs font-semibold cursor-pointer"
-      aria-label="Send"
-      disabled={pending}
-    >
-      {pending ? "Sending..." : "Send"}
-    </button>
-  );
-}
+import { cn } from "@/lib/utils";
+
+import { useRef, useState } from "react";
+import { SubmitButton } from "./SubmitButton";
 
 export function ChatBox({
   onPendingChange,
@@ -31,21 +13,33 @@ export function ChatBox({
   onPendingChange: (pending: boolean) => void;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
+  const [message, setMessage] = useState("");
+  const isTooLong = message.length > 800;
+
   return (
     <form
       ref={formRef}
       className="relative w-[90vw] max-w-[90vw] md:w-[32rem] md:max-w-[32rem]"
       action={handleSubmit}
     >
-      <div className="rounded-3xl bg-card/80 shadow w-full p-4 flex flex-col gap-2">
+      <div
+        className={cn(
+          "rounded-3xl bg-card/80 shadow w-full p-4 flex flex-col gap-2",
+          { "border-2 border-red-500": isTooLong }
+        )}
+      >
         <textarea
           name="message"
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
           className="w-full min-h-[120px] bg-transparent text-base resize-none placeholder:text-muted-foreground border-none focus:border-none focus:ring-0 focus:outline-none outline-none"
           placeholder="Hi, I'm Tudor. How can I help you today?"
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
-              formRef.current?.requestSubmit();
+              if (!isTooLong) formRef.current?.requestSubmit();
             }
           }}
         />
@@ -53,7 +47,10 @@ export function ChatBox({
           <span className="text-xs text-muted-foreground select-none pointer-events-none">
             <b>Enter</b>: send, <b>Shift+Enter</b>: newline
           </span>
-          <SubmitButton onPendingChange={onPendingChange} />
+          <SubmitButton
+            onPendingChange={onPendingChange}
+            disabled={isTooLong}
+          />
         </div>
       </div>
     </form>

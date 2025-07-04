@@ -13,6 +13,10 @@ export async function handleSubmit(formData: FormData) {
   }
 
   const message = formData.get("message")?.toString() || "";
+  if (message.length > 800) {
+    redirect(`/contact?message=${encodeURIComponent("Message too long. Try shorter inputs.")}`);
+  }
+
   const { object, tokens } = await getAIRoute(message);
 
   // Add the actual tokens used to the IP's count
