@@ -1,6 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { slides } from "../db";
+import { unstable_ViewTransition as ViewTransition } from "react";
 
 interface ProjectPageProps {
   params: { id: string };
@@ -24,8 +25,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-3xl font-bold mb-4">{project.title}</h1>
-      <p className="text-lg mb-4">{project.description}</p>
+      <ViewTransition name={`slide-title-description-${id}`}>
+        <h1 className="text-3xl font-bold mb-4">{project.title}</h1>
+        <p className="text-lg mb-4">{project.description}</p>
+      </ViewTransition>
       <p className="max-w-2xl text-base text-muted-foreground text-center">
         {project.longDescription}
       </p>
