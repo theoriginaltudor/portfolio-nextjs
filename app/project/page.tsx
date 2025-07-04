@@ -63,8 +63,8 @@ export default function ProjectPage() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="hidden md:flex" />
+        <CarouselNext className="hidden md:flex" />
       </Carousel>
       <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50">
         <div style={{ viewTransitionName: "avatar-group" }}>
