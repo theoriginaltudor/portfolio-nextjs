@@ -19,7 +19,7 @@ export default function Slide({
   const isDark = resolvedTheme === "dark";
 
   return (
-    <div className="relative w-full h-[32rem] min-w-[32rem] max-w-5xl rounded-xl overflow-hidden bg-card flex items-end justify-start mb-4 shrink-0">
+    <div className="relative w-full h-96 max-w-5xl rounded-xl overflow-hidden bg-card flex items-end justify-start mb-4 shrink-0">
       <Image
         src={image}
         alt={title}
