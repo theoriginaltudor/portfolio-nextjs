@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { unstable_ViewTransition as ViewTransition } from "react";
 import { NavigationMenu } from "@/components/NavigationMenu";
 import { MobileNav } from "@/components/MobileNav";
 
@@ -31,17 +30,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ViewTransition>
-          <ThemeProvider>
-            <div className="flex flex-col min-h-screen">
-              <div className="w-full flex justify-end p-4">
-                <NavigationMenu className="hidden md:flex" />
-                <MobileNav />
-              </div>
-              <div className="flex-1 flex flex-col">{children}</div>
+        <ThemeProvider>
+          <div className="flex flex-col min-h-screen">
+            <div className="w-full flex justify-end p-4">
+              <NavigationMenu className="hidden md:flex" />
+              <MobileNav />
             </div>
-          </ThemeProvider>
-        </ViewTransition>
+            <div className="flex-1 flex flex-col">{children}</div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

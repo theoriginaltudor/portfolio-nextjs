@@ -10,7 +10,6 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-
 import { slides } from "./db";
 import Link from "next/link";
 
@@ -42,9 +41,7 @@ export default function ProjectPage() {
         <CarouselNext className="hidden md:flex" />
       </Carousel>
       <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50">
-        <div style={{ viewTransitionName: "avatar-group" }}>
-          <AvatarWithShadow className="w-16 h-16" />
-        </div>
+        <AvatarWithShadow className="w-16 h-16" />
       </div>
     </main>
   );
