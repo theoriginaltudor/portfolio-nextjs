@@ -6,15 +6,9 @@ interface SlideProps {
   image: string;
   title: string;
   description: string;
-  overlay?: boolean;
 }
 
-export default function Slide({
-  image,
-  title,
-  description,
-  overlay,
-}: SlideProps) {
+export default function Slide({ image, title, description }: SlideProps) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
@@ -27,15 +21,7 @@ export default function Slide({
         className="object-cover w-full h-full absolute inset-0 z-0"
         priority
       />
-      {/* Overlay for side slides */}
-      {overlay && (
-        <div
-          className="absolute inset-0 z-10"
-          style={{
-            background: isDark ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.2)",
-          }}
-        />
-      )}
+      {/* Overlay removed */}
       <div
         className={`relative z-20 m-6 p-4 rounded-lg shadow-xl backdrop-blur-sm
           ${isDark ? "bg-black/80 text-white" : "bg-white/80 text-black"}

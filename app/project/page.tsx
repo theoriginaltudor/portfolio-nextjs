@@ -51,7 +51,7 @@ export default function ProjectPage() {
       <p className="text-muted-foreground mb-8 text-center max-w-2xl">
         An overview of project I worked on, showcasing my skills.
       </p>
-      <Carousel className="w-full">
+      <Carousel className="w-full" opts={{ loop: true }}>
         <CarouselContent>
           {slides.map((slide, idx) => (
             <CarouselItem key={idx} className="basis-full md:basis-1/3">
