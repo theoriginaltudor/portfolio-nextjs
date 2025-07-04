@@ -20,10 +20,16 @@ export default function Slide({ image, title, description }: SlideProps) {
         />
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-white dark:from-black to-transparent flex items-start">
           <div className="p-6 w-1/2">
-            <h2 className="text-xl font-semibold mb-1 text-black dark:text-white">
+            <h2
+              className="text-xl font-semibold mb-1 text-black dark:text-white"
+              style={{ viewTransitionName: `slide-title` }}
+            >
               {title}
             </h2>
-            <p className="text-sm text-left text-black dark:text-white">
+            <p
+              className="text-sm text-left text-black dark:text-white"
+              style={{ viewTransitionName: `slide-description` }}
+            >
               {description}
             </p>
           </div>

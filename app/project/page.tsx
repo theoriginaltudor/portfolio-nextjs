@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/carousel";
 
 import { slides } from "./db";
+import Link from "next/link";
 
 export default function ProjectPage() {
   return (
@@ -27,11 +28,13 @@ export default function ProjectPage() {
               key={idx}
               className="basis-full md:basis-1/2 lg:basis-1/3"
             >
-              <Slide
-                image={slide.image}
-                title={slide.title}
-                description={slide.description}
-              />
+              <Link href={`/project/${idx + 1}`}>
+                <Slide
+                  image={slide.image}
+                  title={slide.title}
+                  description={slide.description}
+                />
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>
