@@ -31,6 +31,7 @@ export const getAIRoute = async (
         content: message,
       },
     ],
+    maxTokens: 700,
   });
   return { object, tokens: usage.totalTokens };
 };

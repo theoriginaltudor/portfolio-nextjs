@@ -5,13 +5,12 @@ export interface TokenCheckResult {
   blocked: boolean;
   redirectUrl?: string;
 }
-
-import { NextApiRequest } from "next";
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 
 export function checkAndUpdateTokenLimit(
-  req: NextApiRequest
+  headers: ReadonlyHeaders
 ): TokenCheckResult {
-  const ip = getClientIP(req);
+  const ip = getClientIP(headers);
   if (!ip) {
     return {
       blocked: true,
@@ -27,24 +26,10 @@ export function checkAndUpdateTokenLimit(
   if (entry.blockedUntil && now < entry.blockedUntil) {
     return {
       blocked: true,
-      redirectUrl: `/contact?pageMessage=${encodeURIComponent(
-        "Too many questions. Blocked for 24h."
+      redirectUrl: `/contact?message=${encodeURIComponent(
+        "You have reached your limit for the day. Come back in 24h and we can chat again."
       )}`,
     };
   }
-
-  // Increment token count
-  entry.tokens = (entry.tokens || 0) + 1;
-  if (entry.tokens > 1000) {
-    entry.blockedUntil = now + 24 * 60 * 60 * 1000; // 24h block
-    ipTokenCache[ip] = entry;
-    return {
-      blocked: true,
-      redirectUrl: `/contact?pageMessage=${encodeURIComponent(
-        "Too many questions. Blocked for 24h."
-      )}`,
-    };
-  }
-  ipTokenCache[ip] = entry;
   return { blocked: false };
 }

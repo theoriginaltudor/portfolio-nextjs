@@ -1,13 +1,12 @@
 import { ipTokenCache } from "./ipTokenCache";
 import { getClientIP } from "./getClientIP";
-
-import type { NextApiRequest } from "next";
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 
 export function addTokensForIP(
-  req: NextApiRequest,
+  headers: ReadonlyHeaders,
   tokens: number
 ): { blocked: boolean; redirectUrl?: string } {
-  const ip = getClientIP(req);
+  const ip = getClientIP(headers);
   if (!ip) {
     return {
       blocked: true,
@@ -24,7 +23,7 @@ export function addTokensForIP(
     ipTokenCache[ip] = entry;
     return {
       blocked: true,
-      redirectUrl: `/contact?pageMessage=${encodeURIComponent(
+      redirectUrl: `/contact?message=${encodeURIComponent(
         "Too many questions. Blocked for 24h."
       )}`,
     };
