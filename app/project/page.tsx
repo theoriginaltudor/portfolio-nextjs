@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import AvatarWithShadow from "@/components/AvatarWithShadow";
 import Slide from "@/components/Slide";
 import {
   Carousel,
@@ -41,9 +40,6 @@ export default function ProjectPage() {
         <CarouselPrevious className="hidden md:flex" />
         <CarouselNext className="hidden md:flex" />
       </Carousel>
-      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50">
-        <AvatarWithShadow className="w-16 h-16" />
-      </div>
     </main>
   );
 }

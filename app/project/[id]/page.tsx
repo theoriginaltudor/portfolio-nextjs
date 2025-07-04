@@ -24,7 +24,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (!project) return notFound();
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen">
+    <main className="flex flex-col items-center justify-center flex-1">
       <ViewTransition name={`slide-title-description-${id}`}>
         <h1 className="text-3xl font-bold mb-4">{project.title}</h1>
         <p className="text-lg mb-4">{project.description}</p>
