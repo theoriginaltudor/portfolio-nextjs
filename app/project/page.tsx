@@ -11,38 +11,7 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 
-const slides = [
-  {
-    image: "/tc1_1.jpg",
-    title: "Project One",
-    description: "A brief description of Project One.",
-  },
-  {
-    image: "/globe.svg",
-    title: "Project Two",
-    description: "A brief description of Project Two.",
-  },
-  {
-    image: "/window.svg",
-    title: "Project Three",
-    description: "A brief description of Project Three.",
-  },
-  {
-    image: "/tc1_1.jpg",
-    title: "Project One",
-    description: "A brief description of Project One.",
-  },
-  {
-    image: "/globe.svg",
-    title: "Project Two",
-    description: "A brief description of Project Two.",
-  },
-  {
-    image: "/window.svg",
-    title: "Project Three",
-    description: "A brief description of Project Three.",
-  },
-];
+import { slides } from "./db";
 
 export default function ProjectPage() {
   return (
@@ -54,7 +23,10 @@ export default function ProjectPage() {
       <Carousel className="w-full" opts={{ loop: true }}>
         <CarouselContent>
           {slides.map((slide, idx) => (
-            <CarouselItem key={idx} className="basis-full md:basis-1/3">
+            <CarouselItem
+              key={idx}
+              className="basis-full md:basis-1/2 lg:basis-1/3"
+            >
               <Slide
                 image={slide.image}
                 title={slide.title}
