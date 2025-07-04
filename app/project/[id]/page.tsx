@@ -12,7 +12,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   let project;
   if (!isNaN(Number(id))) {
-    project = slides[parseInt(id)];
+    project = slides[parseInt(id) - 1];
   }
   if (!project) {
     project = slides.find(
