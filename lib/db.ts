@@ -8,7 +8,7 @@ export interface SlideData {
 
 export const slides: SlideData[] = [
   {
-    image: ["/globe.svg"],
+    image: ["/STUK/STUK_1.webp", "/STUK/STUK_2.webp", "/STUK/STUK_3.webp"],
     title: "STUK Automation Enhancements",
     description: "Streamlined repetitive builder output with Vanilla JS and Python automations.",
     longDescription: "## Project Context\nAt STUK, you inherited an inflexible, third-party HTML/JS/CSS builder that shipped buggy, repetitive code. Rather than wade through each teacher’s output, you **automated** the detection and correction of common flaws, saving hours of manual fixes each week. _Suggest adding a screenshot of your automation reports here._\n\n## Technologies & Approach\n- **Vanilla JavaScript & Python** to parse and transform the builder’s output files.\n- **CSS fixes** injected dynamically to patch inconsistent styling rules.\n- A CLI tool that teachers run post-build, which flags unconfigurable cases and applies patches automatically.\n\n## Impact & Recruiter’s Take\n- **Efficiency boost:** Eliminated 80% of manual post-build fixes in the first month.  \n- **User empowerment:** Teachers regained control—if something can’t be configured, your tool suggests workarounds.  \n- **Lessons learned:** You demonstrated a knack for reverse-engineering black-box tools and delivering practical, low-risk automations.\n\n> _“The only caution: we’d love more visibility into error logs. Can you integrate a simple UI next?”_"
@@ -65,7 +65,7 @@ export const slides: SlideData[] = [
     "longDescription": "## Business Problem\nProfiles between the Umbraco CMS and a client-owned platform were drifting—incorrect updates were creating user confusion. You dove into C# webhooks to restore trust.\n\n## Your Fixes\n- **Concurrency audit:** Identified race conditions in webhook handlers.  \n- **Locking strategy:** Introduced transactional locks and retry logic in C#.  \n- **Monitoring hooks:** Added logging and dashboards to surface sync failures immediately.\n\n## Impact & Takeaways\n- **Zero data drift:** Continuous sync consistency regained—support tickets dropped 60%.  \n- **Operational excellence:** You built a playbook for webhook reliability that’s now standard across the client’s platforms.\n\n> _“Critical work—though you might also consider event sourcing for auditability in the long run.”_"
   },
   {
-    image: ["/tc1_1.jpg"],
+    image: ["/Frontend.webp"],
     "title": "Frontend Baseline Upgrade",
     "description": "Migrated the standard Webpack starter to Vite, slashing bundle size without disrupting workflows.",
     "longDescription": "## Situation\nThe team’s ‘quick-start’ was stuck on Webpack—slow rebuilds, heavy bundles, and plugin chaos. You proposed Vite as a drop-in replacement.\n\n## Execution\n- **Seamless migration:** Kept file structure and dev-server conventions identical for developers.  \n- **Bundle optimization:** Native ES modules and Rollup under the hood cut payloads by 40%.  \n- **Plugin consolidation:** Removed 5 custom plugins by leveraging Vite’s built-in capabilities.\n\n## Outcome\n- **Faster iteration:** Hot-reload times went from 3s to under 200ms.  \n- **Clean slate:** New projects now spin up in seconds with robust TypeScript and Sass support.\n\n> _“Smart, developer-friendly solution. Next on the wishlist: integrate optional code linting and formatting hooks.”_"
