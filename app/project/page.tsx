@@ -26,9 +26,9 @@ export default function ProjectPage() {
               key={idx}
               className="basis-full md:basis-1/2 lg:basis-1/3"
             >
-              <Link href={`/project/${idx + 1}`}>
+              <Link href={`/project/${slide.id}`}>
                 <Slide
-                  id={idx + 1}
+                  id={slide.id}
                   image={slide.image[0]}
                   title={slide.title}
                   description={slide.description}

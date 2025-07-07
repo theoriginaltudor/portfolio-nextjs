@@ -1,10 +1,9 @@
 import React from "react";
 
 import { notFound } from "next/navigation";
-import { slides } from "@/lib/db";
+import { SlideData, slides } from "@/lib/db";
 import Article from "@/features/workDescription/Article";
 import ProjectImageHeader from "@/features/workDescription/ProjectImageHeader";
-// ...existing code...
 import ProjectImageCarousel from "@/features/workDescription/ProjectImageCarousel";
 
 interface ProjectPageProps {
@@ -15,16 +14,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const { id } = await params;
   if (!id) return notFound();
 
-  let project;
-  if (!isNaN(Number(id))) {
-    project = slides[parseInt(id) - 1];
-  }
-  if (!project) {
-    project = slides.find(
-      (slide) =>
-        slide.title.toLowerCase().replace(/\s+/g, "-") === id.toLowerCase()
-    );
-  }
+  // Find project by string id property
+  const project: SlideData | undefined = slides.find(
+    (slide) => slide.id === id
+  );
   if (!project) return notFound();
 
   return (
