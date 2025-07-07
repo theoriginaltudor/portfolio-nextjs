@@ -25,7 +25,7 @@ export const getAIRoute = async (
   if (embeddingResult) {
     return {
       object: embeddingResult,
-      tokens: 0, // No tokens used for this response
+      tokens: 0, // TODO: Update logic for counting the tokens used for this response
     };
   }
   const { object, usage } = await generateObject({
