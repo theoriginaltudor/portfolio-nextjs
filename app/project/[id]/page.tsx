@@ -1,6 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { slides } from "../db";
+import { slides } from "@/lib/db";
 import Article from "@/features/workDescription/Article";
 import ProjectImageHeader from "@/features/workDescription/ProjectImageHeader";
 

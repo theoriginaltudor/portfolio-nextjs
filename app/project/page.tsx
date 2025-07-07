@@ -9,7 +9,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import { slides } from "./db";
+import { slides } from "../../lib/db";
 import Link from "next/link";
 
 export default function ProjectPage() {
