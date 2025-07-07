@@ -34,7 +34,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {project.longDescription}
       </Article>
       {/* Carousel of project images */}
-      {project.image && project.image.length > 0 && (
+      {project.image && project.image.length > 1 && (
         <ProjectImageCarousel images={project.image} />
       )}
     </main>
