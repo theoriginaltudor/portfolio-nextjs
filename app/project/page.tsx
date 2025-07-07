@@ -29,7 +29,7 @@ export default function ProjectPage() {
               <Link href={`/project/${idx + 1}`}>
                 <Slide
                   id={idx + 1}
-                  image={slide.image}
+                  image={slide.image[0]}
                   title={slide.title}
                   description={slide.description}
                 />
