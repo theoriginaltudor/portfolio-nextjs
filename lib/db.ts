@@ -32,7 +32,28 @@ export const slides: SlideData[] = [
     "longDescription": "## Challenge & Scope\nYou were tasked with a new ‘Insect Hotels’ map feature on an existing Umbraco/Razor site. It needed to be pluggable anywhere and include user submissions that trigger CMS workflows.\n\n## Solution Details\n- **C#/.NET Razor Pages** for initial server-rendered map view.  \n- **Vanilla JS & Sass** for dynamic point plotting and side-panel interactions.  \n- **Umbraco Forms webhook** to route user submissions into the CMS approval process.\n\n## Outcome & Reflection\n- **Reusability:** The map module has been dropped into three other site sections without a single line of duplicate code.  \n- **User engagement:** 40% uptick in community-submitted hotels within the first quarter.  \n\n> _“Well-engineered, though I’d push for lazy-loading map tiles next time to cut initial payload.”_"
   },
   {
-    image: ["/Sketch_arrow.png"],
+    image: [
+      "/DPA/DPA_desktop_1.webp",
+      "/DPA/DPA_desktop_2.webp",
+      "/DPA/DPA_desktop_3.webp",
+      "/DPA/DPA_desktop_4.webp",
+      "/DPA/DPA_desktop_5.webp",
+      "/DPA/DPA_desktop_6.webp",
+      "/DPA/DPA_desktop_7.webp",
+      "/DPA/DPA_desktop_8.webp",
+      "/DPA/DPA_desktop_9.webp",
+      "/DPA/DPA_desktop_10.webp",
+      "/DPA/DPA_mobile_1.webp",
+      "/DPA/DPA_mobile_2.webp",
+      "/DPA/DPA_mobile_3.webp",
+      "/DPA/DPA_mobile_4.webp",
+      "/DPA/DPA_mobile_5.webp",
+      "/DPA/DPA_mobile_6.webp",
+      "/DPA/DPA_mobile_7.webp",
+      "/DPA/DPA_mobile_8.webp",
+      "/DPA/DPA_mobile_9.webp",
+      "/DPA/DPA_mobile_10.webp"
+    ],
     "title": "DPA Microphones Revamp",
     "description": "Overhauled a complex marketing site, balancing SEO and interactivity with server-first rendering.",
     "longDescription": "## Project Overview\nDPA’s site had grown organically into a spaghetti of features. You reined it in using **Razor Pages** for first-load, SEO-critical views, then layered in **JavaScript** for richer interactivity.\n\n## Technical Strategy\n- **Server-rendered hero sections** with immediate content for crawlers.  \n- **Progressive enhancement:** Vanilla JS for subsequent API-driven data loads.  \n- **Scalable Sass & Bootstrap** utility classes to maintain design consistency.\n\n## What You Learned\n- **Trade-offs matter:** Picking server-rendering first gave us marketing wins fast, but JS teardown needed careful orchestration.  \n- **Team collaboration:** You bridged front and back end constantly—next time, you’d introduce style-guide automation sooner.\n\n> _“Solid balance of SEO and UX; would love to see a move toward componentized styling (e.g., CSS Modules) in the future.”_"
