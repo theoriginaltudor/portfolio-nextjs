@@ -21,11 +21,11 @@ export const schema = z.object({
 export const getAIRoute = async (
   message: string
 ): Promise<{ object: z.infer<typeof schema>; tokens: number }> => {
-  const embeddingResult = await getBestAIRouteFromEmbedding(message);
-  if (embeddingResult) {
+  const { pathResponse, tokens } = await getBestAIRouteFromEmbedding(message);
+  if (pathResponse) {
     return {
-      object: embeddingResult,
-      tokens: 0, // TODO: Update logic for counting the tokens used for this response
+      object: pathResponse,
+      tokens,
     };
   }
   const { object, usage } = await generateObject({

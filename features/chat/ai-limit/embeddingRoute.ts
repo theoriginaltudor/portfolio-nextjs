@@ -8,9 +8,9 @@ const embeddingModel = google.textEmbeddingModel("text-embedding-004");
 const values = slides.map((slide) => slide.title + " " + slide.description + " " + slide.longDescription);
 let vectorDatabase: { value: string; embedding: number[] }[] | null = null;
 
-const getVectorDatabase = async () => {
-  if (vectorDatabase) return vectorDatabase;
-  const { embeddings } = await embedMany({
+const getVectorDatabase = async (): Promise<{ vectorDatabase: typeof vectorDatabase; tokens: number }> => {
+  if (vectorDatabase) return { vectorDatabase, tokens: 0 };
+  const { embeddings, usage } = await embedMany({
     model: embeddingModel,
     values,
   });
@@ -18,42 +18,45 @@ const getVectorDatabase = async () => {
     value: slides[index].id,
     embedding,
   }));
-  return vectorDatabase;
+  return { vectorDatabase, tokens: usage.tokens };
 };
 
 /**
- * Returns a JSON object with path and response if similarity > 0.8, otherwise returns false.
+ * Returns a response object containing path, response, and tokens
  * @param message The user message to embed and compare.
- * @returns {{ path: string; response: string } | false}
+ * @returns {Promise<{ pathResponse?: { path: string; response: string }; tokens: number }>}
  */
 export const getBestAIRouteFromEmbedding = async (
   message: string
-): Promise<{ path: string; response: string } | false> => {
-  const vectorDatabase = await getVectorDatabase();
+): Promise<{ pathResponse?: { path: string; response: string }; tokens: number }> => {
+  const { vectorDatabase, tokens } = await getVectorDatabase();
   const searchTerm = await embed({
     model: embeddingModel,
     value: message,
   });
-  const entries = vectorDatabase.map((entry) => {
+  const entries = vectorDatabase?.map((entry) => {
     return {
       value: entry.value,
       similarity: cosineSimilarity(entry.embedding, searchTerm.embedding),
     };
   });
-  const sortedEntries = entries.sort((a, b) => b.similarity - a.similarity);
+  const sortedEntries = entries?.sort((a, b) => b.similarity - a.similarity);
 
   console.log('Sorted entries with similarity scores:',
-    sortedEntries.map(entry => ({
+    sortedEntries?.map(entry => ({
       path: entry.value,
       similarity: entry.similarity.toFixed(4)
     }))
   );
 
-  if (sortedEntries[0] && sortedEntries[0].similarity > 0.4) {
+  if (sortedEntries?.[0] && sortedEntries[0].similarity > 0.4) {
     return {
-      path: `project/${sortedEntries[0].value}`,
-      response: "The information you requested can be found on this page.",
+      pathResponse: {
+        path: `project/${sortedEntries[0].value}`,
+        response: "The information you requested can be found on this page."
+      },
+      tokens
     };
   }
-  return false;
+  return { tokens };
 };
