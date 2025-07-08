@@ -41,9 +41,17 @@ export const getBestAIRouteFromEmbedding = async (
     };
   });
   const sortedEntries = entries.sort((a, b) => b.similarity - a.similarity);
-  if (sortedEntries[0] && sortedEntries[0].similarity > 0.8) {
+
+  console.log('Sorted entries with similarity scores:',
+    sortedEntries.map(entry => ({
+      path: entry.value,
+      similarity: entry.similarity.toFixed(4)
+    }))
+  );
+
+  if (sortedEntries[0] && sortedEntries[0].similarity > 0.4) {
     return {
-      path: sortedEntries[0].value,
+      path: `project/${sortedEntries[0].value}`,
       response: "The information you requested can be found on this page.",
     };
   }
