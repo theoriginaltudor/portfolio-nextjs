@@ -25,7 +25,7 @@ const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
     <div className="absolute inset-0 bg-black/30 z-5" />
     <div className="absolute inset-0 flex items-center justify-center z-10">
       <ViewTransition name={`slide-title-description-${id}`}>
-        <h1 className="text-5xl font-bold text-white drop-shadow-lg">
+        <h1 className="text-5xl font-bold text-center text-white drop-shadow-lg">
           {project.title}
         </h1>
       </ViewTransition>
