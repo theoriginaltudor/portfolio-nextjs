@@ -5,6 +5,7 @@ import { SlideData, slides } from "@/lib/db";
 import Article from "@/features/workDescription/Article";
 import ProjectImageHeader from "@/features/workDescription/ProjectImageHeader";
 import ProjectImageCarousel from "@/features/workDescription/ProjectImageCarousel";
+import Skills from "@/features/workDescription/Skills";
 
 interface ProjectPageProps {
   params: { id: string };
@@ -23,6 +24,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <main className="flex flex-col items-center flex-1 w-full">
       <ProjectImageHeader project={project} id={id} />
+
+      <Skills skills={project.skills} />
+
       <Article className="max-w-2xl text-base w-full px-4 mt-8">
         {project.longDescription}
       </Article>
