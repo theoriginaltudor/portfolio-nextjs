@@ -53,6 +53,9 @@ const markdownComponents = {
   th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
     <th className="border px-2 py-1 font-bold" {...props} />
   ),
+  p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
+    <p className="mb-4" {...props} />
+  ),
 };
 
 export default function Article({ children, ...props }: ArticleProps) {

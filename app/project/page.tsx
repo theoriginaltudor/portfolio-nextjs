@@ -19,6 +19,7 @@ export default function ProjectPage() {
       <p className="text-muted-foreground mb-8 text-center max-w-2xl">
         An overview of project I worked on, showcasing my skills.
       </p>
+      {/* TODO: fix tablet view */}
       <Carousel className="w-full" opts={{ loop: true }}>
         <CarouselContent>
           {slides.map((slide, idx) => (
