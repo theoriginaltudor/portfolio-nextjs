@@ -6,9 +6,8 @@ import Article from "@/features/workDescription/Article";
 import ProjectImageHeader from "@/features/workDescription/ProjectImageHeader";
 import ProjectImageCarousel from "@/features/workDescription/ProjectImageCarousel";
 import Skills from "@/features/workDescription/Skills";
-import { PageProps } from "@/out/types/app/project/[id]/page";
 
-interface ProjectPageProps extends PageProps {
+interface ProjectPageProps {
   params: Promise<{
     id: string;
   }>;
