@@ -6,9 +6,12 @@ import Article from "@/features/workDescription/Article";
 import ProjectImageHeader from "@/features/workDescription/ProjectImageHeader";
 import ProjectImageCarousel from "@/features/workDescription/ProjectImageCarousel";
 import Skills from "@/features/workDescription/Skills";
+import { PageProps } from "@/.next/types/app/project/[id]/page";
 
-interface ProjectPageProps {
-  params: { id: string };
+interface ProjectPageProps extends PageProps {
+  params: Promise<{
+    id: string;
+  }>;
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -36,4 +39,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       )}
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  return slides.map((slide) => ({
+    id: slide.id,
+  }));
 }
