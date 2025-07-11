@@ -12,7 +12,7 @@ const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
   project,
   id,
 }) => (
-  <div className="relative w-full min-h-[120px] h-[50dvh]">
+  <div className="relative w-full min-h-[120px] h-[70dvh]">
     <Image
       src={project.image[0]}
       alt={project.title}
