@@ -15,7 +15,7 @@ const AvatarWithShadow: FC<AvatarWithShadowProps> = ({
   <ViewTransition name="avatar-group">
     <div className={cn("relative w-64 h-64", className)}>
       <Avatar className="w-full h-full">
-        <AvatarImage src="/tc1_1.jpg" alt="Avatar" />
+        <AvatarImage src="/tc1_1.webp" alt="Avatar" />
         <AvatarFallback className="text-7xl">TC</AvatarFallback>
       </Avatar>
       <span
