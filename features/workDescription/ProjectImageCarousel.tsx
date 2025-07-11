@@ -19,7 +19,7 @@ const ProjectImageCarousel: React.FC<ProjectImageCarouselProps> = ({
   if (!images || images.length === 0) return null;
 
   return images.length % 2 === 0 ? (
-    <div className="w-full max-w-2xl mt-12">
+    <div className="w-10/12 max-w-[100rem] my-12">
       <Carousel className="w-full" opts={{ loop: true }}>
         <CarouselContent>
           {Array.from({ length: images.length / 2 }).map((_, idx) => (
@@ -33,7 +33,7 @@ const ProjectImageCarousel: React.FC<ProjectImageCarouselProps> = ({
       </Carousel>
     </div>
   ) : (
-    <div className="w-full max-w-2xl mt-12">
+    <div className="w-10/12 max-w-[100rem] my-12">
       <Carousel className="w-full" opts={{ loop: true }}>
         <CarouselContent>
           {images.map((img, idx) => (
