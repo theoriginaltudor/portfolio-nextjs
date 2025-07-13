@@ -1,20 +1,36 @@
 import * as React from "react";
 import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 interface SlideProps {
   id: number;
-  image: string;
   title: string;
   description: string;
 }
 
-export default function Slide({ id, image, title, description }: SlideProps) {
+const Slide: React.FC<SlideProps> = async ({
+  id,
+  title,
+  description,
+}: SlideProps) => {
+  const { data: image, error } = await supabase
+    .from("images")
+    .select("path")
+    .eq("article_id", id)
+    .limit(1)
+    .single();
+
+  if (error) {
+    console.error("Error fetching image:", error);
+    return null;
+  }
+
   return (
     <div className="relative h-[70dvh] w-full md:w-96">
       <div className="w-full h-full max-w-5xl rounded-xl overflow-hidden bg-card flex items-start justify-start mb-4 shrink-0">
         <Image
-          src={image}
+          src={image?.path || ""}
           alt={title}
           fill
           className="object-cover w-full h-full absolute inset-0 z-0"
@@ -35,4 +51,6 @@ export default function Slide({ id, image, title, description }: SlideProps) {
       </div>
     </div>
   );
-}
+};
+
+export default Slide;
