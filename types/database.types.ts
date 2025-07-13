@@ -16,25 +16,25 @@ export type Database = {
     Tables: {
       articles: {
         Row: {
-          description: string | null
+          description: string
           id: number
-          long_description: string | null
+          long_description: string
           slug: string
-          title: string | null
+          title: string
         }
         Insert: {
-          description?: string | null
+          description: string
           id?: number
-          long_description?: string | null
+          long_description: string
           slug: string
-          title?: string | null
+          title: string
         }
         Update: {
-          description?: string | null
+          description?: string
           id?: number
-          long_description?: string | null
+          long_description?: string
           slug?: string
-          title?: string | null
+          title?: string
         }
         Relationships: []
       }
