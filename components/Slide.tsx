@@ -28,7 +28,7 @@ const Slide: React.FC<SlideProps> = async ({
 
   return (
     <div className="relative h-[70dvh] w-full md:w-96">
-      <div className="w-full h-full max-w-5xl rounded-xl overflow-hidden bg-card flex items-start justify-start mb-4 shrink-0">
+      <div className="w-full h-full max-w-5xl rounded-xl overflow-hidden bg-card flex items-start justify-start mb-4 shrink-0 relative">
         <Image
           src={image?.path || ""}
           alt={title}
