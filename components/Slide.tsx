@@ -3,7 +3,7 @@ import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
 
 interface SlideProps {
-  id: string;
+  id: number;
   image: string;
   title: string;
   description: string;

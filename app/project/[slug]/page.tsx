@@ -9,23 +9,23 @@ import Skills from "@/features/workDescription/Skills";
 
 interface ProjectPageProps {
   params: Promise<{
-    id: string;
+    slug: string;
   }>;
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { id } = await params;
-  if (!id) return notFound();
+  const { slug } = await params;
+  if (!slug) return notFound();
 
-  // Find project by string id property
+  // Find project by slug property
   const project: SlideData | undefined = slides.find(
-    (slide) => slide.id === id
+    (slide) => slide.slug === slug
   );
   if (!project) return notFound();
 
   return (
     <main className="flex flex-col items-center flex-1 w-full">
-      <ProjectImageHeader project={project} id={id} />
+      <ProjectImageHeader project={project} id={project.id} />
 
       <Skills skills={project.skills} />
 
@@ -42,6 +42,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
 export async function generateStaticParams() {
   return slides.map((slide) => ({
-    id: slide.id,
+    slug: slide.slug,
   }));
 }

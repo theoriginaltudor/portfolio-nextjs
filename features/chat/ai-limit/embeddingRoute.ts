@@ -15,7 +15,7 @@ const getVectorDatabase = async (): Promise<{ vectorDatabase: typeof vectorDatab
     values,
   });
   vectorDatabase = embeddings.map((embedding, index) => ({
-    value: slides[index].id,
+    value: slides[index].slug,
     embedding,
   }));
   return { vectorDatabase, tokens: usage.tokens };

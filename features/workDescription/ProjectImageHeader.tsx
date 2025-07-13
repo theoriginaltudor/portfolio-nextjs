@@ -5,7 +5,7 @@ import { SlideData } from "@/lib/db";
 
 interface ProjectImageHeaderProps {
   project: SlideData;
-  id: string;
+  id: number;
 }
 
 const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
