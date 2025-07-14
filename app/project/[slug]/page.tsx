@@ -6,7 +6,7 @@ import ProjectImageHeader from "@/features/workDescription/ProjectImageHeader";
 import ProjectImageCarousel from "@/features/workDescription/ProjectImageCarousel";
 import Skills from "@/features/workDescription/Skills";
 import { supabase } from "@/lib/supabaseClient";
-import { Database } from "@/types/database.types";
+import { Tables } from "@/types/database.types";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -22,7 +22,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     .from("articles")
     .select("*")
     .eq("slug", slug)
-    .single<Database["public"]["Tables"]["articles"]["Row"]>();
+    .single<Tables<"articles">>();
   if (projectError) {
     console.error("Error fetching project:", projectError);
     return notFound();
@@ -86,16 +86,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <Article className="max-w-2xl text-base w-full px-4 mt-8">
         {project.long_description}
       </Article>
-      {/* Carousel of project images */}
+
       {images && images.length > 1 && (
         <ProjectImageCarousel images={images.map((img) => img.path)} />
       )}
     </main>
   );
 }
-
-// export async function generateStaticParams() {
-//   return slides.map((slide) => ({
-//     slug: slide.slug,
-//   }));
-// }

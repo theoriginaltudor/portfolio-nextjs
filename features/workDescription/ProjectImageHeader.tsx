@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
-import { Database } from "@/types/database.types";
+import { Tables } from "@/types/database.types";
 
 interface ProjectImageHeaderProps {
-  project: Database["public"]["Tables"]["articles"]["Row"];
+  project: Tables<"articles">;
   id: number;
   image: string;
 }
