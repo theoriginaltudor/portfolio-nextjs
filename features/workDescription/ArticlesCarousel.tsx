@@ -8,6 +8,8 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import Link from "next/link";
+import { supabase } from "@/lib/supabaseClient";
+import { Tables } from "@/types/database.types";
 
 interface Article {
   id: number;
@@ -20,11 +22,23 @@ interface ArticlesCarouselProps {
   articles: Article[];
 }
 
-const ArticlesCarousel: React.FC<ArticlesCarouselProps> = ({ articles }) => {
+const ArticlesCarousel = async ({ articles }: ArticlesCarouselProps) => {
+  const articleIds = articles.map((a) => a.id);
+  let images: Tables<"images">[] = [];
+  if (articleIds.length) {
+    const { data, error } = await supabase
+      .from("images")
+      .select("*")
+      .in("article_id", articleIds)
+      .like("path", "%_1%");
+    if (!error && data) images = data as Tables<"images">[];
+  }
+
   return (
     <Carousel className="w-full" opts={{ loop: true }}>
       <CarouselContent>
         {articles.map((article) => {
+          const image = images.find((img) => img.article_id === article.id);
           return (
             <CarouselItem
               key={article.id}
@@ -35,6 +49,7 @@ const ArticlesCarousel: React.FC<ArticlesCarouselProps> = ({ articles }) => {
                   id={article.id}
                   title={article.title}
                   description={article.description}
+                  imagePath={image?.path}
                 />
               </Link>
             </CarouselItem>
