@@ -47,7 +47,6 @@ const ProjectImageCarousel: React.FC<ProjectImageCarouselProps> = ({
       </div>
     );
   }
-  console.log(desktopImages, mobileImages);
 
   return (
     <div className="w-10/12 max-w-[100rem] my-12">
