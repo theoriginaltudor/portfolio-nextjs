@@ -1,21 +1,29 @@
-import { slides } from "@/lib/db";
 import { google } from "@ai-sdk/google";
 import { cosineSimilarity, embed, embedMany } from "ai";
+import { createClient } from "../../../lib/supabase/server";
+import { Tables } from "../../../types/database.types";
 
 const embeddingModel = google.textEmbeddingModel("text-embedding-004");
 
-
-const values = slides.map((slide) => slide.title + " " + slide.description + " " + slide.longDescription);
 let vectorDatabase: { value: string; embedding: number[] }[] | null = null;
+
+
 
 const getVectorDatabase = async (): Promise<{ vectorDatabase: typeof vectorDatabase; tokens: number }> => {
   if (vectorDatabase) return { vectorDatabase, tokens: 0 };
+  const supabase = await createClient();
+  const { data: articles, error } = await supabase
+    .from("articles")
+    .select("slug, title, description, long_description")
+    .order("id", { ascending: true });
+  if (error || !articles) throw new Error("Failed to fetch articles from Supabase");
+  const values = (articles as Tables<'articles'>[]).map((article) => `${article.title} ${article.description} ${article.long_description}`);
   const { embeddings, usage } = await embedMany({
     model: embeddingModel,
     values,
   });
   vectorDatabase = embeddings.map((embedding, index) => ({
-    value: slides[index].slug,
+    value: (articles as Tables<'articles'>[])[index].slug,
     embedding,
   }));
   return { vectorDatabase, tokens: usage.tokens };
