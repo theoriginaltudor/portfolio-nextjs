@@ -5,28 +5,29 @@ import Article from "@/features/workDescription/Article";
 import ProjectImageHeader from "@/features/workDescription/ProjectImageHeader";
 import ProjectImageCarousel from "@/features/workDescription/ProjectImageCarousel";
 import Skills from "@/features/workDescription/Skills";
-import { supabase } from "@/lib/supabaseClient";
 import type { Tables } from "@/types/database.types";
+import { createClient } from "@/lib/supabase/server";
 
 interface ProjectPageProps {
   params: Promise<{
     slug: string;
   }>;
 }
+// Types for joined response using DB types
+interface JoinedSkill extends Tables<"articles_skills"> {
+  skills: Tables<"skills">;
+}
+
+interface JoinedProject extends Tables<"articles"> {
+  images: Tables<"images">[];
+  articles_skills: JoinedSkill[];
+}
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   if (!slug) return notFound();
 
-  // Types for joined response using DB types
-  interface JoinedSkill extends Tables<"articles_skills"> {
-    skills: Tables<"skills">;
-  }
-
-  interface JoinedProject extends Tables<"articles"> {
-    images: Tables<"images">[];
-    articles_skills: JoinedSkill[];
-  }
+  const supabase = await createClient();
 
   // Fetch article with joined images and skills
   const { data: project, error: projectError } = await supabase

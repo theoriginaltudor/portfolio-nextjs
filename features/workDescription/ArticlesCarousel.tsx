@@ -8,8 +8,8 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import Link from "next/link";
-import { supabase } from "@/lib/supabaseClient";
 import { Tables } from "@/types/database.types";
+import { createClient } from "@/lib/supabase/server";
 
 interface Article {
   id: number;
@@ -26,6 +26,8 @@ const ArticlesCarousel = async ({ articles }: ArticlesCarouselProps) => {
   const articleIds = articles.map((a) => a.id);
   let images: Tables<"images">[] = [];
   if (articleIds.length) {
+    const supabase = await createClient();
+
     const { data, error } = await supabase
       .from("images")
       .select("*")

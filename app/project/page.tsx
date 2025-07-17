@@ -1,8 +1,10 @@
 import * as React from "react";
-import { supabase } from "@/lib/supabaseClient";
 import ArticlesCarousel from "@/features/workDescription/ArticlesCarousel";
+import { createClient } from "@/lib/supabase/server";
 
-export default async function ProjectPage() {
+export default async function ProjectsPage() {
+  const supabase = await createClient();
+
   const { data: articles, error } = await supabase.from("articles").select("*");
   return (
     <main className="flex-1 max-w-10/12 md:max-w-7xl mx-auto py-6 px-2 md:py-12 md:px-4 flex flex-col items-center">
