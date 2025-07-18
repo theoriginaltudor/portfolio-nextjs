@@ -1,63 +1,38 @@
 import { google } from "@ai-sdk/google";
-import { cosineSimilarity, embed, embedMany } from "ai";
-import { createClient } from "../../../lib/supabase/server";
-import { Tables } from "../../../types/database.types";
+import { embed } from "ai";
+
+import { createClient } from "../../../lib/supabase/server"; // Adjust the import path as necessary 
 
 const embeddingModel = google.textEmbeddingModel("text-embedding-004");
 
-let vectorDatabase: { value: string; embedding: number[] }[] | null = null;
-
-
-
-const getVectorDatabase = async (): Promise<{ vectorDatabase: typeof vectorDatabase; tokens: number }> => {
-  if (vectorDatabase) return { vectorDatabase, tokens: 0 };
-  const supabase = await createClient();
-  const { data: articles, error } = await supabase
-    .from("articles")
-    .select("slug, title, description, long_description")
-    .order("id", { ascending: true });
-  if (error || !articles) throw new Error("Failed to fetch articles from Supabase");
-  const values = (articles as Tables<'articles'>[]).map((article) => `${article.title} ${article.description} ${article.long_description}`);
-  const { embeddings, usage } = await embedMany({
-    model: embeddingModel,
-    values,
-  });
-  vectorDatabase = embeddings.map((embedding, index) => ({
-    value: (articles as Tables<'articles'>[])[index].slug,
-    embedding,
-  }));
-  return { vectorDatabase, tokens: usage.tokens };
-};
-
-/**
- * Returns a response object containing path, response, and tokens
- * @param message The user message to embed and compare.
- * @returns {Promise<{ pathResponse?: { path: string; response: string }; tokens: number }>}
- */
 export const getBestAIRouteFromEmbedding = async (
   message: string
 ): Promise<{ pathResponse?: { path: string; response: string }; tokens: number }> => {
-  const { vectorDatabase, tokens } = await getVectorDatabase();
+  const supabase = await createClient();
   const searchTerm = await embed({
     model: embeddingModel,
     value: message,
   });
-  const entries = vectorDatabase?.map((entry) => {
-    return {
-      value: entry.value,
-      similarity: cosineSimilarity(entry.embedding, searchTerm.embedding),
-    };
-  });
-  const sortedEntries = entries?.sort((a, b) => b.similarity - a.similarity);
 
-  if (sortedEntries?.[0] && sortedEntries[0].similarity > 0.4) {
+  // Call the match_articles function in Supabase
+  const { data, error } = await supabase.rpc('match_articles', {
+    query_embedding: searchTerm.embedding,
+    match_threshold: 0.5,
+    match_count: 1
+  });
+
+  if (error) {
+    return { tokens: searchTerm.usage.tokens };
+  }
+
+  if (data && data.length > 0 && data[0].similarity > 0.7) {
     return {
       pathResponse: {
-        path: `project/${sortedEntries[0].value}`,
+        path: `project/${data[0].slug}`,
         response: "The information you requested can be found on this page."
       },
-      tokens
+      tokens: searchTerm.usage.tokens
     };
   }
-  return { tokens };
+  return { tokens: searchTerm.usage.tokens };
 };
