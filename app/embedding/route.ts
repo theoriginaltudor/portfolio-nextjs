@@ -13,7 +13,10 @@ type ArticleWithSkills = Database["public"]["Tables"]["articles"]["Row"] & {
 };
 
 async function getArticles() {
-  const supabase = await createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error("Supabase environment variables are not set.");
+  }
+  const supabase = await createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
   const { data, error } = await supabase
     .from('articles')
     .select(`
@@ -28,6 +31,7 @@ async function getArticles() {
     .is('embedding', null);
 
   if (error) {
+    console.error("Error fetching articles:", error);
     throw new Error(`Error fetching articles: ${error.message}`);
   }
 
@@ -46,17 +50,22 @@ async function generateEmbeddings() {
       const contentToEmbed = `Title: ${article.title}\nSkills: ${skills}\nDescription: ${article.description}\nContent: ${article.long_description}`;
       const result = await embed({ model, value: contentToEmbed });
       const embedding = result.embedding;
-      const supabase = await createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        throw new Error("Supabase environment variables are not set.");
+      }
+      const supabase = await createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
       const { error: updateError } = await supabase
         .from('articles')
         .update({ embedding })
         .eq('id', article.id);
       if (updateError) {
+        console.error(`Failed to update embedding for article ${article.id}:`, updateError);
         failed.push({ id: article.id, error: updateError });
       } else {
         updated++;
       }
     } catch (err) {
+      console.error(`An error occurred while processing article ${article.id}:`, err);
       failed.push({ id: article.id, error: err });
     }
   }
@@ -78,7 +87,9 @@ export async function GET() {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    return new Response(JSON.stringify({ success: false, message: 'An unexpected error occurred.', error }), {
+    console.error("Error in GET /api/embedding:", error);
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred.';
+    return new Response(JSON.stringify({ success: false, message: errorMessage, error }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
