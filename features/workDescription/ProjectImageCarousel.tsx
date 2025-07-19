@@ -55,7 +55,7 @@ const ProjectImageCarousel: React.FC<ProjectImageCarouselProps> = ({
           {desktopImages.map((desktopImg, idx) => (
             <CarouselItem key={idx} className="basis-full">
               <SlideWithPair
-                images={[desktopImg, mobileImages[idx + 1]]}
+                images={[desktopImg, mobileImages[idx]]}
                 index={idx}
               />
             </CarouselItem>

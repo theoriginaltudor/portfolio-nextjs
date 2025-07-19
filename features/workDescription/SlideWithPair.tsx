@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 interface SlideProps {
-  images: string[];
+  images: [string, string];
   index: number;
 }
 
@@ -11,10 +11,7 @@ interface SlideProps {
  * The first image is at `index`, the second is at `index + images.length / 2`.
  */
 const SlideWithPair: React.FC<SlideProps> = ({ images, index }) => {
-  if (!images || images.length < 2 || images.length % 2 !== 0) return null;
-  const half = images.length / 2;
-  const img1 = images[index];
-  const img2 = images[index + half];
+  const [img1, img2] = images;
 
   return (
     <div className="flex w-full gap-4 items-center">
@@ -30,7 +27,7 @@ const SlideWithPair: React.FC<SlideProps> = ({ images, index }) => {
       <div className="w-1/3 flex items-center">
         <Image
           src={img2}
-          alt={`Feature image ${index + 1 + half}`}
+          alt={`Feature image ${index + 2}`}
           className="rounded-lg object-cover w-full h-auto"
           width={300}
           height={400}
