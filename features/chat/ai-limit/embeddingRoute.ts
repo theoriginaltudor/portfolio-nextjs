@@ -18,7 +18,7 @@ export const getBestAIRouteFromEmbedding = async (
     // Call the match_articles function in Supabase
     const { data, error } = await supabase.rpc("match_articles", {
       query_embedding: searchTerm.embedding,
-      match_threshold: 0.5,
+      match_threshold: 0.4,
       match_count: 1,
     });
 
@@ -27,7 +27,7 @@ export const getBestAIRouteFromEmbedding = async (
       return { tokens: searchTerm.usage.tokens };
     }
 
-    if (data && data.length > 0 && data[0].similarity > 0.7) {
+    if (data && data.length > 0 && data[0].similarity > 0.5) {
       return {
         pathResponse: {
           path: `project/${data[0].slug}`,
@@ -36,6 +36,7 @@ export const getBestAIRouteFromEmbedding = async (
         tokens: searchTerm.usage.tokens,
       };
     }
+
     return { tokens: searchTerm.usage.tokens };
   } catch (error) {
     console.error("Error in getBestAIRouteFromEmbedding:", error);
