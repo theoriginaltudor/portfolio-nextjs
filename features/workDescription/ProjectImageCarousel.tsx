@@ -18,34 +18,45 @@ const ProjectImageCarousel: React.FC<ProjectImageCarouselProps> = ({
 }) => {
   if (!images || images.length === 0) return null;
 
-  return images.length % 2 === 0 ? (
+  const desktopImages = images.filter((img) => img.includes("_desktop_"));
+  const mobileImages = images.filter((img) => img.includes("_mobile_"));
+  const hasDesktopMobile = desktopImages.length > 0 || mobileImages.length > 0;
+
+  if (!hasDesktopMobile) {
+    return (
+      <div className="w-10/12 max-w-[100rem] my-12">
+        <Carousel className="w-full" opts={{ loop: true }}>
+          <CarouselContent>
+            {images.map((img, idx) => (
+              <CarouselItem key={idx} className="basis-full">
+                <Image
+                  src={img}
+                  alt={`Project image ${idx + 1}`}
+                  className="w-full rounded-lg shadow-md"
+                  width={800}
+                  height={500}
+                  style={{ width: "100%", height: "auto" }}
+                  priority={idx === 0}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
+        </Carousel>
+      </div>
+    );
+  }
+
+  return (
     <div className="w-10/12 max-w-[100rem] my-12">
       <Carousel className="w-full" opts={{ loop: true }}>
         <CarouselContent>
-          {Array.from({ length: images.length / 2 }).map((_, idx) => (
+          {desktopImages.map((desktopImg, idx) => (
             <CarouselItem key={idx} className="basis-full">
-              <SlideWithPair images={images} index={idx} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="hidden md:flex" />
-        <CarouselNext className="hidden md:flex" />
-      </Carousel>
-    </div>
-  ) : (
-    <div className="w-10/12 max-w-[100rem] my-12">
-      <Carousel className="w-full" opts={{ loop: true }}>
-        <CarouselContent>
-          {images.map((img, idx) => (
-            <CarouselItem key={idx} className="basis-full">
-              <Image
-                src={img}
-                alt={`Project image ${idx + 1}`}
-                className="w-full rounded-lg shadow-md"
-                width={800}
-                height={500}
-                style={{ width: "100%", height: "auto" }}
-                priority={idx === 0}
+              <SlideWithPair
+                images={[desktopImg, mobileImages[idx]]}
+                index={idx}
               />
             </CarouselItem>
           ))}

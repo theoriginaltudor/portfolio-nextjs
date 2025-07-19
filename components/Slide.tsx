@@ -3,23 +3,30 @@ import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
 
 interface SlideProps {
-  id: string;
-  image: string;
+  id: number;
+  imagePath?: string;
   title: string;
   description: string;
 }
 
-export default function Slide({ id, image, title, description }: SlideProps) {
+const Slide: React.FC<SlideProps> = async ({
+  id,
+  title,
+  imagePath,
+  description,
+}: SlideProps) => {
   return (
     <div className="relative h-[70dvh] w-full md:w-96">
-      <div className="w-full h-full max-w-5xl rounded-xl overflow-hidden bg-card flex items-start justify-start mb-4 shrink-0">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="object-cover w-full h-full absolute inset-0 z-0"
-          priority
-        />
+      <div className="w-full h-full max-w-5xl rounded-xl overflow-hidden bg-card flex items-start justify-start mb-4 shrink-0 relative">
+        {imagePath && (
+          <Image
+            src={imagePath}
+            alt={title}
+            fill
+            className="object-cover w-full h-full absolute inset-0 z-0"
+            priority
+          />
+        )}
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-white dark:from-black to-transparent flex items-start">
           <div className="p-6 w-1/2">
             <ViewTransition name={`slide-title-description-${id}`}>
@@ -35,4 +42,6 @@ export default function Slide({ id, image, title, description }: SlideProps) {
       </div>
     </div>
   );
-}
+};
+
+export default Slide;

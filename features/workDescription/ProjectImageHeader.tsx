@@ -1,20 +1,22 @@
 import React from "react";
 import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
-import { SlideData } from "@/lib/db";
+import { Tables } from "@/types/database.types";
 
 interface ProjectImageHeaderProps {
-  project: SlideData;
-  id: string;
+  project: Tables<"articles">;
+  id: number;
+  image: string;
 }
 
 const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
   project,
   id,
+  image,
 }) => (
   <div className="relative w-full min-h-[120px] h-[70dvh]">
     <Image
-      src={project.image[0]}
+      src={image}
       alt={project.title}
       fill
       className="object-cover w-full h-full absolute inset-0 z-0 object-center"

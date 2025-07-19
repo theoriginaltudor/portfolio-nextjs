@@ -4,7 +4,7 @@ It is built using TypeScript, React, and Tailwind CSS.
 
 Try to always use tailwind classes for styling.
 
-New components should always be a const lambda function, not a class.
+New components should always be a const lambda function, not a class. Provide types as well. (RFC<Props>)
 
 Use interfaces for props, not types.
 
@@ -26,3 +26,13 @@ Always check responsiveness and mobile compatibility using Tailwind's responsive
 
 Use Git for version control and keep commit messages descriptive.
 Use ESLint and Prettier for code formatting and linting.
+
+# Supabase Usage
+
+Use Supabase as the database and authentication provider.
+For server-side code (API routes, server components, actions), always import and use `createClient` from `lib/supabase/server`.
+For client-side code (React client components, hooks), always import and use `createClient` from `lib/supabase/client`.
+Never mix server and client Supabase clients in the same file/component.
+Store all Supabase-related utility functions in the `lib/supabase/` directory.
+
+Try to always use the types from types/database.types.ts

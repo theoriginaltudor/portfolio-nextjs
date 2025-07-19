@@ -21,25 +21,30 @@ export const schema = z.object({
 export const getAIRoute = async (
   message: string
 ): Promise<{ object: z.infer<typeof schema>; tokens: number }> => {
-  const { pathResponse, tokens } = await getBestAIRouteFromEmbedding(message);
-  if (pathResponse) {
-    return {
-      object: pathResponse,
-      tokens,
-    };
+  try {
+    const { pathResponse, tokens } = await getBestAIRouteFromEmbedding(message);
+    if (pathResponse) {
+      return {
+        object: pathResponse,
+        tokens,
+      };
+    }
+    const { object, usage } = await generateObject({
+      model,
+      schema,
+      system:
+        "You're an assistant helping a user to navigate a portfolio website.",
+      messages: [
+        {
+          role: "user",
+          content: message,
+        },
+      ],
+      maxTokens: 700,
+    });
+    return { object, tokens: usage.totalTokens };
+  } catch (error) {
+    console.error("Error in getAIRoute:", error);
+    throw error;
   }
-  const { object, usage } = await generateObject({
-    model,
-    schema,
-    system:
-      "You're an assistant helping a user to navigate a portfolio website.",
-    messages: [
-      {
-        role: "user",
-        content: message,
-      },
-    ],
-    maxTokens: 700,
-  });
-  return { object, tokens: usage.totalTokens };
 };
