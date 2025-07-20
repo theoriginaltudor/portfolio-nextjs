@@ -15,9 +15,16 @@ export function addTokensForIP(
     };
   }
   const now = Date.now();
-  const entry = ipTokenCache[ip] || { tokens: 0, blockedUntil: 0 };
+  const entry = ipTokenCache[ip] || { tokens: 0, blockedUntil: 0, lastUpdated: now };
+
+  // Reset tokens if more than 24h since last update
+  if (entry.lastUpdated && now - entry.lastUpdated > 24 * 60 * 60 * 1000) {
+    entry.tokens = 0;
+    entry.lastUpdated = now;
+  }
 
   entry.tokens = (entry.tokens || 0) + tokens;
+  entry.lastUpdated = now;
   if (entry.tokens > 1000) {
     entry.blockedUntil = now + 24 * 60 * 60 * 1000;
     ipTokenCache[ip] = entry;

@@ -1,11 +1,11 @@
 import { ipTokenCache } from "./ipTokenCache";
 import { getClientIP } from "./getClientIP";
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 
 export interface TokenCheckResult {
   blocked: boolean;
   redirectUrl?: string;
 }
-import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 
 export function checkAndUpdateTokenLimit(
   headers: ReadonlyHeaders
@@ -20,7 +20,14 @@ export function checkAndUpdateTokenLimit(
     };
   }
   const now = Date.now();
-  const entry = ipTokenCache[ip] || { tokens: 0, blockedUntil: 0 };
+  const entry = ipTokenCache[ip] || { tokens: 0, blockedUntil: 0, lastUpdated: now };
+
+  // Reset tokens if more than 24h since last update
+  if (entry.lastUpdated && now - entry.lastUpdated > 24 * 60 * 60 * 1000) {
+    entry.tokens = 0;
+    entry.lastUpdated = now;
+    ipTokenCache[ip] = entry;
+  }
 
   // Check if blocked
   if (entry.blockedUntil && now < entry.blockedUntil) {

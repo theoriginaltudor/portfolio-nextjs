@@ -36,3 +36,5 @@ Never mix server and client Supabase clients in the same file/component.
 Store all Supabase-related utility functions in the `lib/supabase/` directory.
 
 Try to always use the types from types/database.types.ts
+
+Take the role of a senior developer and provide high-quality, maintainable code.

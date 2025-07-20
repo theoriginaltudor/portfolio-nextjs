@@ -7,5 +7,5 @@ if (!(global as any).ipTokenCache) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ipTokenCache = (global as any).ipTokenCache as Record<
   string,
-  { tokens: number; blockedUntil: number }
+  { tokens: number; blockedUntil: number; lastUpdated: number }
 >;

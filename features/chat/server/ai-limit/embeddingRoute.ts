@@ -1,7 +1,7 @@
 import { google } from "@ai-sdk/google";
 import { embed } from "ai";
 
-import { createClient } from "../../../lib/supabase/server"; // Adjust the import path as necessary 
+import { createClient } from "@/lib/supabase/server"; // Adjust the import path as necessary 
 
 const embeddingModel = google.textEmbeddingModel("text-embedding-004");
 
