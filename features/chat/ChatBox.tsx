@@ -1,6 +1,6 @@
 "use client";
 
-import { handleSubmit } from "@/features/chat/handleSubmit";
+import { handleSubmit } from "@/features/chat/server/handleSubmit";
 
 import { cn } from "@/lib/utils";
 
