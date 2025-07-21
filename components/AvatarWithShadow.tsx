@@ -11,12 +11,13 @@ interface AvatarWithShadowProps {
   isLoading?: boolean;
 }
 
+const supabase = createClient();
+
 const AvatarWithShadow: React.FC<AvatarWithShadowProps> = ({
   className,
   isLoading,
 }) => {
   const avatarUrl = useMemo(() => {
-    const supabase = createClient();
     const { data } = supabase.storage
       .from("portfolio-images")
       .getPublicUrl("tc1_1.webp");
