@@ -9,7 +9,7 @@ interface UseArticleImagesParams {
 }
 
 
-export const getArticleImages = async ({ articleIds, supabaseClient }: UseArticleImagesParams) => {
+export const getArticlesImage = async ({ articleIds, supabaseClient }: UseArticleImagesParams) => {
   if (!articleIds.length) return [];
   const { data, error } = await supabaseClient
     .from("images")

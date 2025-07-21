@@ -19,7 +19,7 @@ interface JoinedSkill extends Tables<"articles_skills"> {
 }
 
 interface JoinedProject extends Tables<"articles"> {
-  images: Tables<"images">[];
+  images: Pick<Tables<"images">, "path">[];
   articles_skills: JoinedSkill[];
 }
 
@@ -33,7 +33,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const { data: project, error: projectError } = await supabase
     .from("articles")
     .select(
-      `id, slug, title, description, long_description, images(id, path, article_id), articles_skills(article_id, skill_id, skills(id, name))`
+      `id, slug, title, description, long_description, images(path), articles_skills(article_id, skill_id, skills(id, name))`
     )
     .eq("slug", slug)
     .single<JoinedProject>();

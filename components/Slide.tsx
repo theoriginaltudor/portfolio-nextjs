@@ -1,13 +1,14 @@
 import * as React from "react";
 import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
-import { createClient } from "@/lib/supabase/server";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 interface SlideProps {
   id: number;
   imagePath?: string;
   title: string;
   description: string;
+  supabaseClient: SupabaseClient;
 }
 
 const Slide: React.FC<SlideProps> = async ({
@@ -15,11 +16,11 @@ const Slide: React.FC<SlideProps> = async ({
   title,
   imagePath,
   description,
+  supabaseClient,
 }: SlideProps) => {
   let publicUrl: string | undefined = undefined;
   if (imagePath) {
-    const supabase = await createClient();
-    const { data } = supabase.storage
+    const { data } = supabaseClient.storage
       .from("portfolio-images")
       .getPublicUrl(imagePath);
     publicUrl = data.publicUrl;
