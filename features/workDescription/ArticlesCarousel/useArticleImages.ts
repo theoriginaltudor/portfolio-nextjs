@@ -15,7 +15,7 @@ export const getArticlesImage = async ({ articleIds, supabaseClient }: UseArticl
     .from("images")
     .select("article_id, path")
     .in("article_id", articleIds)
-    .like("path", "%_1%");
+    .or("path.like.%_1.webp,path.like.%_desktop.webp");
   if (error || !data) return [];
   return data as Pick<Tables<"images">, "article_id" | "path">[];
 };
