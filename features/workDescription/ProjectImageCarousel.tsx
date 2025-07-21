@@ -18,8 +18,8 @@ const ProjectImageCarousel: React.FC<ProjectImageCarouselProps> = ({
 }) => {
   if (!images || images.length === 0) return null;
 
-  const desktopImages = images.filter((img) => img.includes("_desktop_"));
-  const mobileImages = images.filter((img) => img.includes("_mobile_"));
+  const desktopImages = images.filter((img) => img.includes("_desktop"));
+  const mobileImages = images.filter((img) => img.includes("_mobile"));
   const hasDesktopMobile = desktopImages.length > 0 || mobileImages.length > 0;
 
   if (!hasDesktopMobile) {

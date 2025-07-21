@@ -1,6 +1,6 @@
 "use client";
 
-import { handleSubmit } from "@/features/chat/handleSubmit";
+import { redirectWithAI } from "@/features/chat/server/action";
 
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ export function ChatBox({
     <form
       ref={formRef}
       className="relative w-[90vw] max-w-[90vw] md:w-[32rem] md:max-w-[32rem]"
-      action={handleSubmit}
+      action={redirectWithAI}
     >
       <div
         className={cn(

@@ -35,4 +35,6 @@ For client-side code (React client components, hooks), always import and use `cr
 Never mix server and client Supabase clients in the same file/component.
 Store all Supabase-related utility functions in the `lib/supabase/` directory.
 
-Try to always use the types from types/database.types.ts
+Try to always use the types from types/database.types.ts and Pick or Omit for more specific types.
+
+Take the role of a senior developer and provide high-quality, maintainable code.

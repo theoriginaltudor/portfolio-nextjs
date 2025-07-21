@@ -4,8 +4,9 @@ import { createClient } from "@/lib/supabase/server";
 
 export default async function ProjectsPage() {
   const supabase = await createClient();
-
-  const { data: articles, error } = await supabase.from("articles").select("*");
+  const { data: articles, error } = await supabase
+    .from("articles")
+    .select("id, slug, title, description");
   return (
     <main className="flex-1 max-w-10/12 md:max-w-7xl mx-auto py-6 px-2 md:py-12 md:px-4 flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-2">Relevant work</h1>
@@ -16,7 +17,9 @@ export default async function ProjectsPage() {
         <p className="text-red-500">Error loading articles: {error.message}</p>
       )}
       {/* TODO: fix tablet view */}
-      {articles && <ArticlesCarousel articles={articles} />}
+      {articles && (
+        <ArticlesCarousel articles={articles} supabaseClient={supabase} />
+      )}
     </main>
   );
 }

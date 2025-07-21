@@ -1,12 +1,14 @@
 import * as React from "react";
 import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 interface SlideProps {
   id: number;
   imagePath?: string;
   title: string;
   description: string;
+  supabaseClient: SupabaseClient;
 }
 
 const Slide: React.FC<SlideProps> = async ({
@@ -14,13 +16,22 @@ const Slide: React.FC<SlideProps> = async ({
   title,
   imagePath,
   description,
+  supabaseClient,
 }: SlideProps) => {
+  let publicUrl: string | undefined = undefined;
+  if (imagePath) {
+    const { data } = supabaseClient.storage
+      .from("portfolio-images")
+      .getPublicUrl(imagePath);
+    publicUrl = data.publicUrl;
+  }
+
   return (
     <div className="relative h-[70dvh] w-full md:w-96">
       <div className="w-full h-full max-w-5xl rounded-xl overflow-hidden bg-card flex items-start justify-start mb-4 shrink-0 relative">
-        {imagePath && (
+        {publicUrl && (
           <Image
-            src={imagePath}
+            src={publicUrl}
             alt={title}
             fill
             className="object-cover w-full h-full absolute inset-0 z-0"

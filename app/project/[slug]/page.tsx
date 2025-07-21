@@ -5,7 +5,8 @@ import Article from "@/features/workDescription/Article";
 import ProjectImageHeader from "@/features/workDescription/ProjectImageHeader";
 import ProjectImageCarousel from "@/features/workDescription/ProjectImageCarousel";
 import Skills from "@/features/workDescription/Skills";
-import type { Tables } from "@/types/database.types";
+import { fetchProjectData } from "@/features/workDescription/hooks/fetchData";
+import { buildImageUrls } from "@/features/workDescription/hooks/buildUrls";
 import { createClient } from "@/lib/supabase/server";
 
 interface ProjectPageProps {
@@ -13,31 +14,13 @@ interface ProjectPageProps {
     slug: string;
   }>;
 }
-// Types for joined response using DB types
-interface JoinedSkill extends Tables<"articles_skills"> {
-  skills: Tables<"skills">;
-}
-
-interface JoinedProject extends Tables<"articles"> {
-  images: Tables<"images">[];
-  articles_skills: JoinedSkill[];
-}
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   if (!slug) return notFound();
 
   const supabase = await createClient();
-
-  // Fetch article with joined images and skills
-  const { data: project, error: projectError } = await supabase
-    .from("articles")
-    .select(
-      `id, slug, title, description, long_description, images(id, path, article_id), articles_skills(article_id, skill_id, skills(id, name))`
-    )
-    .eq("slug", slug)
-    .single<JoinedProject>();
-
+  const { project, projectError } = await fetchProjectData(supabase, slug);
   if (projectError) {
     console.error("Error fetching project:", projectError);
     return notFound();
@@ -53,7 +36,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     .map((s) => s.skills)
     .filter(Boolean);
 
-  if (!images.length) {
+  const imageUrls = await buildImageUrls(supabase, images);
+
+  if (!imageUrls.length) {
     console.warn("No images found for project:", project.id);
   }
   if (!skills.length) {
@@ -65,7 +50,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <ProjectImageHeader
         project={project}
         id={project.id}
-        image={images[0]?.path}
+        image={imageUrls[0]}
       />
 
       <Skills skills={skills.map((s) => s.name)} />
@@ -74,9 +59,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {project.long_description}
       </Article>
 
-      {images.length > 1 && (
-        <ProjectImageCarousel images={images.map((img) => img.path)} />
-      )}
+      {imageUrls.length > 1 && <ProjectImageCarousel images={imageUrls} />}
     </main>
   );
 }
