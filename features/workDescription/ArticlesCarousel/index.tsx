@@ -24,7 +24,6 @@ const ArticlesCarousel = async ({
 }: ArticlesCarouselProps) => {
   const articleIds = articles.map((a) => a.id);
   const imagePaths = await getArticlesImage({ articleIds, supabaseClient });
-  console.log("Image paths:", imagePaths);
 
   return (
     <Carousel className="w-full" opts={{ loop: true }}>
