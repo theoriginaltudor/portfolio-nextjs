@@ -5,7 +5,7 @@ import { checkAndUpdateTokenLimit } from "./ai-limit/checkAndUpdateTokenLimit";
 import { addTokensForIP } from "./ai-limit/addTokensForIP";
 import { headers } from "next/headers";
 
-export async function handleSubmit(formData: FormData) {
+export async function redirectWithAI(formData: FormData) {
   const headersList = await headers();
   const tokenCheck = checkAndUpdateTokenLimit(headersList);
   if (tokenCheck.blocked && tokenCheck.redirectUrl) {
