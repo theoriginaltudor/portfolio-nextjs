@@ -1,7 +1,7 @@
 import { embed } from "ai";
 import { google } from "@ai-sdk/google";
 import { Database } from "@/types/database.types";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 const model = google.textEmbeddingModel("text-embedding-004");
 interface ArticleSkillWithSkill {
@@ -12,11 +12,7 @@ type ArticleWithSkills = Database["public"]["Tables"]["articles"]["Row"] & {
   articles_skills: ArticleSkillWithSkill[];
 };
 
-async function getArticles() {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error("Supabase environment variables are not set.");
-  }
-  const supabase = await createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+async function getArticles(supabase: SupabaseClient) {
   const { data, error } = await supabase
     .from('articles')
     .select(`
@@ -39,7 +35,11 @@ async function getArticles() {
 }
 
 async function generateEmbeddings() {
-  const articles = await getArticles();
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error("Supabase environment variables are not set.");
+  }
+  const supabase = await createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+  const articles = await getArticles(supabase);
 
   let updated = 0;
   const failed: { id: number; error: unknown }[] = [];
@@ -50,10 +50,6 @@ async function generateEmbeddings() {
       const contentToEmbed = `Title: ${article.title}\nSkills: ${skills}\nDescription: ${article.description}\nContent: ${article.long_description}`;
       const result = await embed({ model, value: contentToEmbed });
       const embedding = result.embedding;
-      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-        throw new Error("Supabase environment variables are not set.");
-      }
-      const supabase = await createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
       const { error: updateError } = await supabase
         .from('articles')
         .update({ embedding })

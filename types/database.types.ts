@@ -173,7 +173,7 @@ export type Database = {
         Args: { "": string } | { "": unknown } | { "": unknown }
         Returns: unknown
       }
-      match_articles: {
+      search_articles: {
         Args: {
           query_embedding: string
           match_threshold: number
@@ -184,6 +184,7 @@ export type Database = {
           slug: string
           title: string
           description: string
+          long_description: string
           similarity: number
         }[]
       }

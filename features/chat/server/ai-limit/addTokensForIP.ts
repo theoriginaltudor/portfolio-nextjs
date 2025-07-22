@@ -1,6 +1,7 @@
 import { ipTokenCache } from "./ipTokenCache";
 import { getClientIP } from "./getClientIP";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
+import { DAILY_TOKEN_LIMIT } from "./constants";
 
 export function addTokensForIP(
   headers: ReadonlyHeaders,
@@ -25,7 +26,7 @@ export function addTokensForIP(
 
   entry.tokens = (entry.tokens || 0) + tokens;
   entry.lastUpdated = now;
-  if (entry.tokens > 1000) {
+  if (entry.tokens > DAILY_TOKEN_LIMIT) {
     entry.blockedUntil = now + 24 * 60 * 60 * 1000;
     ipTokenCache[ip] = entry;
     return {
