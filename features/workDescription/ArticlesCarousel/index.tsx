@@ -38,7 +38,7 @@ const ArticlesCarousel = async ({
               key={article.id}
               className="md:basis-1/2 xl:basis-1/3"
             >
-              <Link href={`/project/${article.slug}`} prefetch>
+              <Link href={`/project/${article.slug}`}>
                 <Slide
                   id={article.id}
                   title={article.title}

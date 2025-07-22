@@ -11,3 +11,4 @@
 - [ ] consider moving to convex
 - [ ] consider moving to vercel
 - [x] implement retrival augmented generationnto get better results from chat
+- [ ] add Streaming functionality
