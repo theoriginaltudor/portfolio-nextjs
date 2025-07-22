@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import AvatarWithShadow from "@/components/AvatarWithShadow";
 import LayoutMessage from "@/features/workDescription/LayoutMessage";
 
@@ -11,7 +11,9 @@ export default function ProjectLayout({
     <>
       {children}
       <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-50">
-        <LayoutMessage />
+        <Suspense>
+          <LayoutMessage />
+        </Suspense>
         <AvatarWithShadow className="w-16 h-16" />
       </div>
     </>
