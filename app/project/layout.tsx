@@ -14,7 +14,7 @@ export default function ProjectLayout({
         <Suspense>
           <LayoutMessage />
         </Suspense>
-        <AvatarWithShadow className="w-16 h-16" />
+        <AvatarWithShadow size="small" />
       </div>
     </>
   );

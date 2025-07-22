@@ -7,14 +7,14 @@ import { unstable_ViewTransition as ViewTransition } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 interface AvatarWithShadowProps {
-  className?: string;
+  size?: "big" | "small";
   isLoading?: boolean;
 }
 
 const supabase = createClient();
 
 const AvatarWithShadow: React.FC<AvatarWithShadowProps> = ({
-  className,
+  size = "big",
   isLoading,
 }) => {
   const avatarUrl = useMemo(() => {
@@ -24,9 +24,16 @@ const AvatarWithShadow: React.FC<AvatarWithShadowProps> = ({
     return data.publicUrl;
   }, []);
 
+  const sizeClass = size === "big" ? "w-64 h-64" : "w-16 h-16";
+
   return (
     <ViewTransition name="avatar-group">
-      <div className={cn("relative w-64 h-64", className)}>
+      <div className={cn("relative", sizeClass)}>
+        {size === "big" && (
+          <span className="absolute left-1/2 bottom-4 -translate-x-1/2 px-3 py-1 rounded-full bg-gray-800/70 text-white text-xs font-bold tracking-widest shadow-md z-10 select-none md:text-sm">
+            WORK IN PROGRESS
+          </span>
+        )}
         <Avatar className="w-full h-full">
           <AvatarImage src={avatarUrl} alt="Avatar" />
           <AvatarFallback className="text-7xl">TC</AvatarFallback>
