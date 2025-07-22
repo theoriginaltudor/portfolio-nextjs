@@ -22,7 +22,7 @@ export const searchArticles = async (
   const { data, error } = await supabase.rpc(
     "search_articles",
     {
-      query_embedding: searchTerm.embedding,
+      query_embedding: JSON.stringify(searchTerm.embedding),
       match_threshold: 0.4,
       match_count: 3,
     }
