@@ -9,4 +9,4 @@
 - [ ] start working on authenticated edit mode
 - [ ] consider moving to convex
 - [ ] consider moving to vercel
-- [ ] implement retrival augmented generationnto get better results from chat
+- [x] implement retrival augmented generationnto get better results from chat
