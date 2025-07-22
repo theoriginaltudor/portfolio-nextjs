@@ -26,14 +26,17 @@ const ArticlesCarousel = async ({
   const imagePaths = await getArticlesImage({ articleIds, supabaseClient });
 
   return (
-    <Carousel className="w-full" opts={{ loop: true }}>
+    <Carousel
+      className="w-full md:w-3xl xl:w-7xl"
+      opts={{ loop: true, align: "start" }}
+    >
       <CarouselContent>
         {articles.map((article) => {
           const image = imagePaths.find((img) => img.article_id === article.id);
           return (
             <CarouselItem
               key={article.id}
-              className="basis-full md:basis-1/2 lg:basis-1/3"
+              className="md:basis-1/2 xl:basis-1/3"
             >
               <Link href={`/project/${article.slug}`} prefetch>
                 <Slide

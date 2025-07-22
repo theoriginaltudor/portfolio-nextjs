@@ -1,5 +1,6 @@
 import React from "react";
 import AvatarWithShadow from "@/components/AvatarWithShadow";
+import LayoutMessage from "@/features/workDescription/LayoutMessage";
 
 export default function ProjectLayout({
   children,
@@ -10,6 +11,7 @@ export default function ProjectLayout({
     <>
       {children}
       <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-50">
+        <LayoutMessage />
         <AvatarWithShadow className="w-16 h-16" />
       </div>
     </>
