@@ -1,7 +1,8 @@
 import z from "zod";
 import { generateObject } from "ai";
-import { getBestAIRouteFromEmbedding } from "./embeddingRoute";
+import { getSimilarArticles } from "./getContext";
 import { google } from "@ai-sdk/google";
+import { DAILY_TOKEN_LIMIT } from "./constants";
 
 export const model = google("gemini-2.0-flash");
 
@@ -9,12 +10,12 @@ export const schema = z.object({
   path: z
     .string()
     .describe(
-      "The path name to navigate to. Must be one of: 'contact', 'project' (which is for all projects)."
+      "The path name to navigate to. Must be one of: 'contact', 'project' (which is for all projects), or one of the project article slugs."
     ),
   response: z
     .string()
     .describe(
-      "A short message to the user, such as: 'The information you requested can be found on this page.'"
+      "A short message to the user, answering their question with something like : 'This article might be able to answer your question.' or 'I couldn't find any relevant articles, but you can contact me for more information.', or anything else from the context that might be relevant."
     ),
 });
 
@@ -22,27 +23,23 @@ export const getAIRoute = async (
   message: string
 ): Promise<{ object: z.infer<typeof schema>; tokens: number }> => {
   try {
-    const { pathResponse, tokens } = await getBestAIRouteFromEmbedding(message);
-    if (pathResponse) {
-      return {
-        object: pathResponse,
-        tokens,
-      };
+    let system = "You're Tudor, the owner of the portfolio website. You have some articles about projects I worked on and other pages on this site. Try to answer the user's question based on the context provided, by redirecting them to the specific article that is most relevant.\n";
+    const { context, tokens: contextTokens } = await getSimilarArticles(message);
+    if (context && context !== "") {
+      system += `Context: ${context}\n`;
     }
     const { object, usage } = await generateObject({
       model,
       schema,
-      system:
-        "You're an assistant helping a user to navigate a portfolio website.",
+      system,
       messages: [
-        {
-          role: "user",
-          content: message,
-        },
+        { role: "user" as const, content: message },
       ],
-      maxTokens: 700,
+      maxTokens: Math.floor(DAILY_TOKEN_LIMIT / 2),
     });
-    return { object, tokens: usage.totalTokens };
+    const totalTokens = (contextTokens ?? 0) + (usage.totalTokens ?? 0);
+    console.log("Tokens used:", totalTokens);
+    return { object, tokens: totalTokens };
   } catch (error) {
     console.error("Error in getAIRoute:", error);
     throw error;
