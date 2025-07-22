@@ -19,6 +19,7 @@ export const searchArticles = async (
     model: embeddingModel,
     value: message,
   });
+  const tokens = searchTerm.usage?.tokens || 0;
   const { data, error } = await supabase.rpc(
     "search_articles",
     {
@@ -32,7 +33,7 @@ export const searchArticles = async (
   };
   if (error || !data || data.length === 0) {
     if (error) console.error("Error fetching data from Supabase:", error);
-    return { articles: [], tokens: searchTerm.usage.tokens };
+    return { articles: [], tokens };
   }
   return {
     articles: data.map((a) => ({
@@ -42,7 +43,7 @@ export const searchArticles = async (
       description: a.description,
       long_description: a.long_description,
     })),
-    tokens: searchTerm.usage.tokens,
+    tokens,
   };
 };
 

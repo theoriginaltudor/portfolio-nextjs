@@ -37,8 +37,7 @@ export const getAIRoute = async (
       ],
       maxTokens: Math.floor(DAILY_TOKEN_LIMIT / 2),
     });
-    const totalTokens = (contextTokens ?? 0) + (usage.totalTokens ?? 0);
-    console.log("Tokens used:", totalTokens);
+    const totalTokens = contextTokens + usage.totalTokens;
     return { object, tokens: totalTokens };
   } catch (error) {
     console.error("Error in getAIRoute:", error);
