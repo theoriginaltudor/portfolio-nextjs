@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import AvatarWithShadow from "@/components/avatar-with-shadow";
-import LayoutMessage from "@/features/projects/layout-message";
+import LayoutMessage from "@/feature-components/projects/layout-message";
 
 export default function ProjectLayout({
   children,

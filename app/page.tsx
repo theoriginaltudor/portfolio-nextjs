@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import AvatarWithShadow from "@/components/avatar-with-shadow";
-import { ChatBox } from "@/features/chat-box";
+import { ChatBox } from "@/feature-components/chat-box";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);

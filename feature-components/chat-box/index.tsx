@@ -1,6 +1,6 @@
 "use client";
 
-import { redirectWithAI } from "@/features/chat-box/server/action";
+import { redirectWithAI } from "@/feature-components/chat-box/server/action";
 
 import { cn } from "@/lib/utils";
 
