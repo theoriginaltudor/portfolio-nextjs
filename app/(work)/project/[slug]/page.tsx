@@ -1,13 +1,13 @@
 import React from "react";
 
 import { notFound } from "next/navigation";
-import { ProjectImageHeader } from "@/feature-components/projects/project-image-header";
-import { ProjectImageCarousel } from "@/feature-components/projects/project-image-carousel";
-import { fetchProjectData } from "@/feature-components/projects/hooks/fetch-data";
-import { buildImageUrls } from "@/feature-components/projects/hooks/build-urls";
+import { ProjectImageHeader } from "@/feature-components/work/project-page/project-image-header";
+import { ProjectImageCarousel } from "@/feature-components/work/project-page/project-image-carousel";
+import { fetchProjectData } from "@/feature-components/work/project-page/hooks/fetch-data";
+import { buildImageUrls } from "@/feature-components/work/project-page/hooks/build-urls";
 import { createClient } from "@/lib/supabase/server";
-import { Skills } from "@/feature-components/projects/skills";
-import { Article } from "@/feature-components/projects/article";
+import { Skills } from "@/feature-components/work/project-page/skills";
+import { ArticleBody } from "@/feature-components/work/project-page/article-body";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -55,9 +55,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <Skills skills={skills.map((s) => s.name)} />
 
-      <Article className="max-w-2xl text-base w-full px-4 mt-8">
+      <ArticleBody className="max-w-2xl text-base w-full px-4 mt-8">
         {project.long_description}
-      </Article>
+      </ArticleBody>
 
       {imageUrls.length > 1 && <ProjectImageCarousel images={imageUrls} />}
     </main>
