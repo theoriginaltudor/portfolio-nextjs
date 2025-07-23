@@ -1,13 +1,13 @@
 import React from "react";
 
 import { notFound } from "next/navigation";
-import ProjectImageHeader from "@/feature-components/projects/project-image-header";
-import ProjectImageCarousel from "@/feature-components/projects/project-image-carousel";
+import { ProjectImageHeader } from "@/feature-components/projects/project-image-header";
+import { ProjectImageCarousel } from "@/feature-components/projects/project-image-carousel";
 import { fetchProjectData } from "@/feature-components/projects/hooks/fetch-data";
 import { buildImageUrls } from "@/feature-components/projects/hooks/build-urls";
 import { createClient } from "@/lib/supabase/server";
-import Skills from "@/feature-components/projects/Skills";
-import Article from "@/feature-components/projects/Article";
+import { Skills } from "@/feature-components/projects/skills";
+import { Article } from "@/feature-components/projects/article";
 
 interface ProjectPageProps {
   params: Promise<{

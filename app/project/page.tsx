@@ -1,5 +1,5 @@
 import * as React from "react";
-import ArticlesCarousel from "@/feature-components/projects/articles-carousel";
+import { ArticlesCarousel } from "@/feature-components/projects/articles-carousel";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function ProjectsPage() {

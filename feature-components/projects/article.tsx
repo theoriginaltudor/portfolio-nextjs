@@ -58,7 +58,7 @@ const markdownComponents = {
   ),
 };
 
-export default function Article({ children, ...props }: ArticleProps) {
+export function Article({ children, ...props }: ArticleProps) {
   return (
     <article {...props}>
       <ReactMarkdown

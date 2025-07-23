@@ -4,7 +4,7 @@ interface SkillsProps {
   skills: string[];
 }
 
-const Skills: React.FC<SkillsProps> = ({ skills }) => (
+export const Skills: React.FC<SkillsProps> = ({ skills }) => (
   <div className="max-w-2xl w-full px-4 mt-8">
     <h2 className="text-xl font-semibold mb-2">Skills:</h2>
     <div className="flex flex-wrap gap-2">
@@ -19,5 +19,3 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => (
     </div>
   </div>
 );
-
-export default Skills;

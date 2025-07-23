@@ -6,11 +6,7 @@ interface SlideProps {
   index: number;
 }
 
-/**
- * SlideWithPair displays two images side by side: a landscape (2/3 width) and a portrait (1/3 width).
- * The first image is at `index`, the second is at `index + images.length / 2`.
- */
-const SlideWithPair: React.FC<SlideProps> = ({ images, index }) => {
+export const SlideWithPair: React.FC<SlideProps> = ({ images, index }) => {
   const [img1, img2] = images;
 
   return (
@@ -36,5 +32,3 @@ const SlideWithPair: React.FC<SlideProps> = ({ images, index }) => {
     </div>
   );
 };
-
-export default SlideWithPair;

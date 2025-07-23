@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 
 import { useState } from "react";
 
-const LayoutMessage: FC = () => {
+export const LayoutMessage: FC = () => {
   const searchParams = useSearchParams();
   const message = searchParams.get("message");
   const [visible, setVisible] = useState(true);
@@ -26,5 +26,3 @@ const LayoutMessage: FC = () => {
     </div>
   );
 };
-
-export default LayoutMessage;

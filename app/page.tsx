@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import AvatarWithShadow from "@/components/avatar-with-shadow";
+import { AvatarWithShadow } from "@/components/avatar-with-shadow";
 import { ChatBox } from "@/feature-components/chat-box";
 
 export default function Home() {

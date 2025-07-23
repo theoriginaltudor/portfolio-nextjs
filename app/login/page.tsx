@@ -1,4 +1,4 @@
-import { login } from "./actions";
+import { loginUser } from "./actions";
 
 export default async function LoginPage() {
   return (
@@ -24,7 +24,7 @@ export default async function LoginPage() {
         maxLength={128}
         autoComplete="current-password"
       />
-      <button formAction={login}>Log in</button>
+      <button formAction={loginUser}>Log in</button>
     </form>
   );
 }

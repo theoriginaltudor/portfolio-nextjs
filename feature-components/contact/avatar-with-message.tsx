@@ -5,7 +5,9 @@ interface AvatarWithMessageProps {
   message?: string;
 }
 
-const AvatarWithMessage: React.FC<AvatarWithMessageProps> = ({ message }) => (
+export const AvatarWithMessage: React.FC<AvatarWithMessageProps> = ({
+  message,
+}) => (
   <div className="flex flex-col items-center justify-center gap-4">
     <AvatarWithShadow />
     {message && (
@@ -15,5 +17,3 @@ const AvatarWithMessage: React.FC<AvatarWithMessageProps> = ({ message }) => (
     )}
   </div>
 );
-
-export default AvatarWithMessage;

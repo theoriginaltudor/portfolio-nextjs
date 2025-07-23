@@ -1,4 +1,4 @@
-import { Slide } from "@/components/Slide";
+import { Slide } from "@/components/slide";
 import {
   Carousel,
   CarouselContent,
@@ -17,7 +17,7 @@ interface ArticlesCarouselProps {
   supabaseClient: SupabaseClient;
 }
 
-const ArticlesCarousel = async ({
+export const ArticlesCarousel = async ({
   articles,
   supabaseClient,
 }: ArticlesCarouselProps) => {
@@ -55,5 +55,3 @@ const ArticlesCarousel = async ({
     </Carousel>
   );
 };
-
-export default ArticlesCarousel;
