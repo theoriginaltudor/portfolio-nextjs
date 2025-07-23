@@ -7,7 +7,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import { SlideWithPair } from "../slide-with-pair";
+import { SlideWithPair } from "./slide-with-pair";
 
 interface ProjectImageCarouselProps {
   images: string[];

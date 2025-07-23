@@ -1,5 +1,5 @@
 import React from "react";
-import AvatarWithShadow from "@/components/avatar-with-shadow";
+import { AvatarWithShadow } from "@/components/avatar-with-shadow";
 
 interface AvatarWithMessageProps {
   message?: string;
