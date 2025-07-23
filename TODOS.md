@@ -10,6 +10,4 @@
 - [ ] make a chat page where you can just talk with the LLM, asking questions and it will talk about the data in the articles plus give a link to them
 - [ ] make the avatar in projects route clickable to navigate to the chat page
 - [ ] start working on authenticated edit mode
-- [ ] consider moving to convex
-- [ ] consider moving to vercel
 - [ ] add Streaming functionality
