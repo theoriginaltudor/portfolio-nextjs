@@ -1,6 +1,6 @@
 "use server";
 import { redirect } from "next/navigation";
-import { getAIRoute } from "./ai-limit/ai-route";
+import { getAIRoute } from "./ai-limit/get-ai-route";
 import { checkAndUpdateTokenLimit } from "./ai-limit/manage-token-limit";
 import { addTokensForIP } from "./ai-limit/add-tokens-for-ip";
 import { headers } from "next/headers";

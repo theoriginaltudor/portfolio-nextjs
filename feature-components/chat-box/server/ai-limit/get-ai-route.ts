@@ -10,7 +10,7 @@ export const schema = z.object({
   path: z
     .string()
     .describe(
-      "The path name to navigate to. Must be one of: 'contact', 'project' (which is for all projects), or one of the project article slugs."
+      "The path name to navigate to. Must be one of: 'contact', 'projects' (which is for all projects), or one of the project article slugs."
     ),
   response: z
     .string()
