@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Mail, Github, Linkedin, Phone, MapPin } from "lucide-react";
 
-const ContactInfoCard = () => (
+export const ContactInfoCard = () => (
   <Card className="w-[90vw] md:w-auto">
     <CardHeader>
       <CardTitle>Contact Information</CardTitle>
@@ -58,5 +58,3 @@ const ContactInfoCard = () => (
     </CardContent>
   </Card>
 );
-
-export default ContactInfoCard;

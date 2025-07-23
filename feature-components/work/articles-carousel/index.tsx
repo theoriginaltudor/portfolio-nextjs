@@ -1,5 +1,4 @@
-import * as React from "react";
-import Slide from "@/components/Slide";
+import { Slide } from "@/components/slide";
 import {
   Carousel,
   CarouselContent,
@@ -8,7 +7,7 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import Link from "next/link";
-import { getArticlesImage } from "./useArticleImages";
+import { getArticlesImage } from "./get-articles-images";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { Tables } from "@/types/database.types";
@@ -18,7 +17,7 @@ interface ArticlesCarouselProps {
   supabaseClient: SupabaseClient;
 }
 
-const ArticlesCarousel = async ({
+export const ArticlesCarousel = async ({
   articles,
   supabaseClient,
 }: ArticlesCarouselProps) => {
@@ -38,7 +37,7 @@ const ArticlesCarousel = async ({
               key={article.id}
               className="md:basis-1/2 xl:basis-1/3"
             >
-              <Link href={`/project/${article.slug}`} prefetch>
+              <Link href={`/project/${article.slug}`}>
                 <Slide
                   id={article.id}
                   title={article.title}
@@ -56,5 +55,3 @@ const ArticlesCarousel = async ({
     </Carousel>
   );
 };
-
-export default ArticlesCarousel;

@@ -13,7 +13,7 @@ interface AvatarWithShadowProps {
 
 const supabase = createClient();
 
-const AvatarWithShadow: React.FC<AvatarWithShadowProps> = ({
+export const AvatarWithShadow: React.FC<AvatarWithShadowProps> = ({
   size = "big",
   isLoading,
 }) => {
@@ -49,5 +49,3 @@ const AvatarWithShadow: React.FC<AvatarWithShadowProps> = ({
     </ViewTransition>
   );
 };
-
-export default AvatarWithShadow;

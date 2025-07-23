@@ -26,7 +26,7 @@ export function NavigationMenu({
         </NavigationMenuPrimitive.Item>
         <NavigationMenuPrimitive.Item>
           <NavigationMenuPrimitive.Link asChild>
-            <Link href="/project" onClick={onNavigate}>
+            <Link href="/projects" onClick={onNavigate}>
               Projects
             </Link>
           </NavigationMenuPrimitive.Link>

@@ -3,7 +3,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Drawer } from "@/components/ui/drawer";
 import { Menu } from "lucide-react";
-import { NavigationMenu } from "@/components/NavigationMenu";
+import { NavigationMenu } from "@/components/navigation-menu";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);

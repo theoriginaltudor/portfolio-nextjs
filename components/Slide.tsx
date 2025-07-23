@@ -55,4 +55,4 @@ const Slide: React.FC<SlideProps> = async ({
   );
 };
 
-export default Slide;
+export { Slide };

@@ -7,13 +7,13 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import SlideWithPair from "./SlideWithPair";
+import { SlideWithPair } from "./slide-with-pair";
 
 interface ProjectImageCarouselProps {
   images: string[];
 }
 
-const ProjectImageCarousel: React.FC<ProjectImageCarouselProps> = ({
+export const ProjectImageCarousel: React.FC<ProjectImageCarouselProps> = ({
   images,
 }) => {
   if (!images || images.length === 0) return null;
@@ -67,5 +67,3 @@ const ProjectImageCarousel: React.FC<ProjectImageCarouselProps> = ({
     </div>
   );
 };
-
-export default ProjectImageCarousel;

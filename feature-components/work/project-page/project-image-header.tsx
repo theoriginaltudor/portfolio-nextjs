@@ -9,7 +9,7 @@ interface ProjectImageHeaderProps {
   image: string;
 }
 
-const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
+export const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
   project,
   id,
   image,
@@ -50,5 +50,3 @@ const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
     </div>
   </div>
 );
-
-export default ProjectImageHeader;

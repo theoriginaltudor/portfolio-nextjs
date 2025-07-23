@@ -1,13 +1,13 @@
 import React from "react";
 
 import { notFound } from "next/navigation";
-import Article from "@/features/workDescription/Article";
-import ProjectImageHeader from "@/features/workDescription/ProjectImageHeader";
-import ProjectImageCarousel from "@/features/workDescription/ProjectImageCarousel";
-import Skills from "@/features/workDescription/Skills";
-import { fetchProjectData } from "@/features/workDescription/hooks/fetchData";
-import { buildImageUrls } from "@/features/workDescription/hooks/buildUrls";
+import { ProjectImageHeader } from "@/feature-components/work/project-page/project-image-header";
+import { ProjectImageCarousel } from "@/feature-components/work/project-page/project-image-carousel";
+import { fetchProjectData } from "@/feature-components/work/project-page/hooks/fetch-data";
+import { buildImageUrls } from "@/feature-components/work/project-page/hooks/build-urls";
 import { createClient } from "@/lib/supabase/server";
+import { Skills } from "@/feature-components/work/project-page/skills";
+import { ArticleBody } from "@/feature-components/work/project-page/article-body";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -55,9 +55,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <Skills skills={skills.map((s) => s.name)} />
 
-      <Article className="max-w-2xl text-base w-full px-4 mt-8">
+      <ArticleBody className="max-w-2xl text-base w-full px-4 mt-8">
         {project.long_description}
-      </Article>
+      </ArticleBody>
 
       {imageUrls.length > 1 && <ProjectImageCarousel images={imageUrls} />}
     </main>
