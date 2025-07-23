@@ -12,3 +12,4 @@
 - [ ] consider moving to vercel
 - [x] implement retrival augmented generationnto get better results from chat
 - [ ] add Streaming functionality
+- [x] fix files and folders naming to use kebab-case

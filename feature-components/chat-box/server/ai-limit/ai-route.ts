@@ -1,6 +1,6 @@
 import z from "zod";
 import { generateObject } from "ai";
-import { getSimilarArticles } from "./getContext";
+import { getSimilarArticles } from "./get-context";
 import { google } from "@ai-sdk/google";
 import { DAILY_TOKEN_LIMIT } from "./constants";
 

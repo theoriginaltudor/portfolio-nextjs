@@ -1,5 +1,5 @@
-import { ipTokenCache } from "./ipTokenCache";
-import { getClientIP } from "./getClientIP";
+import { ipTokenCache } from "./ip-token-cache";
+import { getClientIP } from "./get-client-ip";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { DAILY_TOKEN_LIMIT } from "./constants";
 

@@ -1,11 +1,11 @@
 "use client";
 
-import { redirectWithAI } from "@/features/chat/server/action";
+import { redirectWithAI } from "@/features/chat-box/server/action";
 
 import { cn } from "@/lib/utils";
 
 import { useRef, useState } from "react";
-import { SubmitButton } from "./SubmitButton";
+import { SubmitButton } from "./submit-button";
 
 export function ChatBox({
   onPendingChange,

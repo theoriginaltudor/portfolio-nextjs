@@ -1,5 +1,4 @@
-import * as React from "react";
-import Slide from "@/components/Slide";
+import { Slide } from "@/components/Slide";
 import {
   Carousel,
   CarouselContent,
@@ -8,7 +7,7 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import Link from "next/link";
-import { getArticlesImage } from "./useArticleImages";
+import { getArticlesImage } from "./get-articles-images";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { Tables } from "@/types/database.types";
