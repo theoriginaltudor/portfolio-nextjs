@@ -10,7 +10,7 @@ import { getArticlesImage } from "./get-articles-images";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { Tables } from "@/types/database.types";
-import { Slide } from "@/components/slide";
+import { Slide } from "@/components/slide-c";
 
 interface ArticlesCarouselProps {
   articles: Pick<Tables<"articles">, "id" | "slug" | "title" | "description">[];

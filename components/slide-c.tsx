@@ -11,7 +11,7 @@ interface SlideProps {
   supabaseClient: SupabaseClient;
 }
 
-const Slide: React.FC<SlideProps> = async ({
+export const Slide: React.FC<SlideProps> = async ({
   id,
   title,
   imagePath,
@@ -54,5 +54,3 @@ const Slide: React.FC<SlideProps> = async ({
     </div>
   );
 };
-
-export { Slide };
