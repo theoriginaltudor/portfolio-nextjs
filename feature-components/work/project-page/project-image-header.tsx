@@ -23,7 +23,6 @@ export const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
       priority
       sizes="100vw"
     />
-    {/* gradient overlay for better contrast, responsive to theme */}
     <div
       className="absolute inset-0 z-5 pointer-events-none"
       style={{
@@ -32,7 +31,6 @@ export const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
       }}
       data-dark="true"
     />
-    {/* Light theme gradient overlay */}
     <div
       className="absolute inset-0 z-5 pointer-events-none dark:hidden"
       style={{

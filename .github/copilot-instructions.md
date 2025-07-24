@@ -2,7 +2,7 @@ This is a next.js project, and also my portfolio website.
 
 It is built using Next.js, Supabase, TypeScript, React, and Tailwind CSS.
 
-Try to always use tailwind classes for styling.
+Try to always use tailwind classes for styling. And make use of cn from `lib/utils/utils` for conditional class names.
 
 Here is an example of a component, which you should always follow (this doesn't apply to pages):
 
