@@ -21,6 +21,7 @@ export const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
   edit = false,
 }) => {
   const [title, setTitle] = useState(projectTitle);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const path = usePathname();
 
   const updateWithPath = async (
@@ -28,6 +29,7 @@ export const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
     formData: FormData
   ) => {
     const result = await updateArticle(formData, path);
+    setHasUserInteracted(false); // Reset interaction state after submission
     return result;
   };
   const [state, formAction] = useActionState(updateWithPath, undefined);
@@ -63,14 +65,18 @@ export const ProjectImageHeader: React.FC<ProjectImageHeaderProps> = ({
             <input type="hidden" name="id" value={id} />
             <input
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => {
+                setTitle(e.target.value);
+                setHasUserInteracted(true);
+              }}
               name="title"
               className={cn(
                 "text-5xl font-bold text-center drop-shadow-lg rounded-lg py-4 px-6 text-white dark:text-white hover:border-white/30 focus:ring-0 focus:ring-offset-0 w-full bg-transparent border border-transparent",
                 {
-                  "border-green-500 hover:border-green-500": state?.success,
+                  "border-green-500 hover:border-green-500":
+                    state?.success === true && !hasUserInteracted,
                   "border-red-500 hover:border-red-500":
-                    state?.success === false,
+                    state?.success === false && !hasUserInteracted,
                 }
               )}
             />
