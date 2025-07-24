@@ -41,8 +41,10 @@ export const NavigationMenu = ({
           </NavigationMenuPrimitive.Link>
         </NavigationMenuPrimitive.Item>
         {user && (
-          <NavigationMenuPrimitive.Item className="flex items-center gap-2">
-            <UserIcon /> {user.email}
+          <NavigationMenuPrimitive.Item>
+            <div className="flex flex-row items-center gap-2">
+              <UserIcon /> {user.email}
+            </div>
           </NavigationMenuPrimitive.Item>
         )}
       </NavigationMenuPrimitive.List>
