@@ -1,9 +1,12 @@
+"use client";
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cn } from "@/lib/utils/client";
 import Link from "next/link";
-import { User as UserIcon } from "lucide-react";
+import { User as UserIcon, LogOut } from "lucide-react";
 import { User } from "@supabase/supabase-js";
+import { logoutUser } from "@/app/login/actions";
+import { usePathname } from "next/navigation";
 
 export const NavigationMenu = ({
   className,
@@ -14,6 +17,8 @@ export const NavigationMenu = ({
   onNavigate?: () => void;
   user?: User;
 }) => {
+  const pathname = usePathname();
+  const logoutWithPath = logoutUser.bind(null, pathname);
   return (
     <NavigationMenuPrimitive.Root
       className={cn("flex justify-end w-full", className)}
@@ -41,11 +46,23 @@ export const NavigationMenu = ({
           </NavigationMenuPrimitive.Link>
         </NavigationMenuPrimitive.Item>
         {user && (
-          <NavigationMenuPrimitive.Item>
-            <div className="flex flex-row items-center gap-2">
-              <UserIcon /> {user.email}
-            </div>
-          </NavigationMenuPrimitive.Item>
+          <>
+            <NavigationMenuPrimitive.Item>
+              <div className="flex flex-row items-center gap-2">
+                <UserIcon /> {user.email}
+              </div>
+            </NavigationMenuPrimitive.Item>
+            <NavigationMenuPrimitive.Item>
+              <form action={logoutWithPath}>
+                <button
+                  type="submit"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <LogOut />
+                </button>
+              </form>
+            </NavigationMenuPrimitive.Item>
+          </>
         )}
       </NavigationMenuPrimitive.List>
     </NavigationMenuPrimitive.Root>
