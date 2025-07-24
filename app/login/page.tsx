@@ -2,8 +2,18 @@ import { Input } from "@/components/ui/input";
 import { loginUser } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { getUser } from "@/lib/utils/get-user";
 
 export default async function LoginPage() {
+  const user = await getUser();
+  if (user) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1 className="text-2xl font-bold">You are already logged in!</h1>
+      </div>
+    );
+  }
+
   return (
     <form
       className="flex flex-col gap-6 p-4 justify-center items-center mx-auto"

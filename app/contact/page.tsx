@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { AvatarWithMessage } from "@/feature-components/contact/avatar-with-message";
 import { ContactInfoCard } from "@/feature-components/contact/contact-info-card";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 export default async function ContactPage({
   searchParams,
