@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 import { loginUser } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { getUser } from "@/lib/utils/get-user";
+import { getUser } from "@/lib/utils/server";
 
 export default async function LoginPage() {
   const user = await getUser();

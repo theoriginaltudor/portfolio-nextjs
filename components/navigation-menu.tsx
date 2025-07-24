@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import { cn } from "@/lib/utils/utils";
+import { cn } from "@/lib/utils/client";
 import Link from "next/link";
 import { User as UserIcon } from "lucide-react";
 import { User } from "@supabase/supabase-js";

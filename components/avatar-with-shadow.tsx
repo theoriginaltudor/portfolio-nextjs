@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils/utils";
+import { cn } from "@/lib/utils/client";
 import { useMemo } from "react";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { createClient } from "@/lib/supabase/client";

@@ -2,7 +2,7 @@
 
 import { redirectWithAI } from "@/feature-components/chat-box/server/redirect-with-ai";
 
-import { cn } from "@/lib/utils/utils";
+import { cn } from "@/lib/utils/client";
 
 import { useRef, useState } from "react";
 import { SubmitButton } from "./submit-button";

@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { NavigationMenu } from "@/components/navigation-menu";
 import { MobileNav } from "@/components/mobile-nav";
-import { getUser } from "@/lib/utils/get-user";
+import { getUser } from "@/lib/utils/server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
