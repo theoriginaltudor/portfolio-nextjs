@@ -62,6 +62,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <ArticleBody
         className="max-w-2xl text-base w-full px-4 mt-8"
         edit={editMode}
+        projectId={project.id}
       >
         {project.long_description}
       </ArticleBody>
