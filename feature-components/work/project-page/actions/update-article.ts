@@ -11,14 +11,14 @@ export const updateArticle = async (formData: FormData, path: string): Promise<{
       return { success: false };
     }
 
-    const { title, long_description, skills, id } = Object.fromEntries(formData.entries());
+    const { title, long_description, skill, id } = Object.fromEntries(formData.entries());
     const articleId = Number(id);
     const supabase = await createClient();
 
     // Check if we're updating skills or article content
-    if (skills) {
+    if (skill) {
       // Route 1: Update skills (articles_skills table)
-      await updateSkills(skills.toString(), articleId, supabase);
+      await updateSkill(skill.toString(), articleId, supabase);
     } else {
       // Route 2: Update article content (articles table)
       await updateArticleContent({ title, long_description }, articleId, supabase);
@@ -58,8 +58,8 @@ const updateArticleContent = async (
   }
 }
 
-const updateSkills = async (
-  skills: string,
+const updateSkill = async (
+  skill: string,
   articleId: number,
   supabase: Awaited<ReturnType<typeof createClient>>
 ) => {
