@@ -13,7 +13,7 @@ interface RemoveButtonProps {
   >;
   id: number;
 }
-
+// TODO: handle the optimistic ui a level above since this one will delete the component that is supposed to revert changes on error
 export const RemoveButton: React.FC<RemoveButtonProps> = ({ setList, id }) => {
   const path = usePathname();
   const removeAction = async (
