@@ -13,41 +13,34 @@ interface RemoveButtonProps {
   >;
   id: number;
 }
-// TODO: handle the optimistic ui a level above since this one will delete the component that is supposed to revert changes on error
+
 export const RemoveButton: React.FC<RemoveButtonProps> = ({ setList, id }) => {
   const path = usePathname();
   const removeAction = async (
     prevState: { success: boolean } | undefined,
     formData: FormData
   ) => {
-    const rawId = formData.get("id");
+    const rawId = formData.get("skillId");
     if (typeof rawId !== "string") {
       throw new Error("Invalid id");
     }
     const idToDelete = parseInt(rawId, 10);
-    let item: Database["public"]["Tables"]["skills"]["Row"] | undefined;
-    setList((prev) => {
-      item = prev.find((skill) => skill.id === idToDelete);
-      return prev.filter((skill) => skill.id !== idToDelete);
-    });
     const response = await updateArticle(formData, path);
-    if (response.success === false) {
-      setList((prev) => {
-        if (item) {
-          return [...prev, item];
-        }
-        return prev;
-      });
+    if (response.success === true) {
+      setList((prev) => prev.filter((skill) => skill.id !== idToDelete));
     }
     return response;
   };
   const [state, formAction, pending] = useActionState(removeAction, undefined);
+
+  if (pending) return null;
+
   return (
     <form action={formAction} className="inline-flex items-center">
-      <input type="hidden" name="id" value={id} />
+      <input type="hidden" name="skillId" value={id} />
       <button type="submit" disabled={pending} aria-label="Remove">
         <MinusCircleIcon
-          className={cn({
+          className={cn("cursor-pointer", {
             "text-green-500": state?.success === true,
             "text-red-500": state?.success === false,
           })}

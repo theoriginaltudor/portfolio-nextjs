@@ -11,14 +11,18 @@ export const updateArticle = async (formData: FormData, path: string): Promise<{
       return { success: false };
     }
 
-    const { title, long_description, skill, id } = Object.fromEntries(formData.entries());
+    const { title, long_description, skillId, id } = Object.fromEntries(formData.entries());
     const articleId = Number(id);
     const supabase = await createClient();
 
     // Check if we're updating skills or article content
-    if (skill) {
+    if (skillId) {
       // Route 1: Update skills (articles_skills table)
-      await updateSkill(skill.toString(), articleId, supabase);
+      const parsedSkillId = Number(skillId);
+      if (isNaN(parsedSkillId)) {
+        throw new Error("Invalid skillId: must be a number");
+      }
+      await updateSkill(parsedSkillId, articleId, supabase);
     } else {
       // Route 2: Update article content (articles table)
       await updateArticleContent({ title, long_description }, articleId, supabase);
@@ -44,8 +48,7 @@ const updateArticleContent = async (
 
   // Only update if there's something to update
   if (Object.keys(updateData).length === 0) {
-    console.log("No article content to update.");
-    return;
+    throw new Error("No article content to update.");
   }
 
   const { error } = await supabase
@@ -59,11 +62,17 @@ const updateArticleContent = async (
 }
 
 const updateSkill = async (
-  skill: string,
+  skillId: number,
   articleId: number,
   supabase: Awaited<ReturnType<typeof createClient>>
 ) => {
-  // TODO: Implement skills update logic
-  // This will involve updating the articles_skills junction table
-  throw new Error(`Skills update functionality is not implemented yet for article ${articleId} with skills: ${skills}`);
+  const { error } = await supabase
+    .from("articles_skills")
+    .delete()
+    .eq("article_id", articleId)
+    .eq("skill_id", skillId);
+
+  if (error) {
+    throw new Error(`Failed to remove skill from article: ${error.message}`);
+  }
 }
