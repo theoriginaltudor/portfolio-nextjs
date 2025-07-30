@@ -16,7 +16,6 @@ const supabase = createClient();
 export const AvatarWithShadow: React.FC<AvatarWithShadowProps> = ({
   size = "big",
 }) => {
-  console.log("Rendering AvatarWithShadow");
   const { loading } = useSubmittingStore();
   const avatarUrl = useMemo(() => {
     const { data } = supabase.storage

@@ -7,7 +7,6 @@ import { memo, useEffect } from "react";
 const SubmitButton: React.FC<{ disabled: boolean }> = ({ disabled }) => {
   const { pending } = useFormStatus();
   const { setLoading } = useSubmittingStore();
-  console.log("render submit button");
   useEffect(() => {
     setLoading(pending);
     // eslint-disable-next-line react-hooks/exhaustive-deps
