@@ -5,13 +5,10 @@ import { redirectWithAI } from "@/feature-components/chat-box/server/redirect-wi
 import { cn } from "@/lib/utils/client";
 
 import { useRef, useState } from "react";
-import { SubmitButton } from "./submit-button";
+import { MemoizedSubmitButton } from "./submit-button";
 
-export function ChatBox({
-  onPendingChange,
-}: {
-  onPendingChange: (pending: boolean) => void;
-}) {
+export const ChatBox: React.FC = () => {
+  console.log("Rendering ChatBox");
   const formRef = useRef<HTMLFormElement>(null);
   const [message, setMessage] = useState("");
   const isTooLong = message.length > 800;
@@ -47,12 +44,9 @@ export function ChatBox({
           <span className="text-xs text-muted-foreground select-none pointer-events-none">
             <b>Enter</b>: send, <b>Shift+Enter</b>: newline
           </span>
-          <SubmitButton
-            onPendingChange={onPendingChange}
-            disabled={isTooLong}
-          />
+          <MemoizedSubmitButton disabled={isTooLong} />
         </div>
       </div>
     </form>
   );
-}
+};
