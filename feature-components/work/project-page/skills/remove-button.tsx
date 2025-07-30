@@ -4,7 +4,7 @@ import React, { useActionState } from "react";
 import { MinusCircleIcon } from "lucide-react";
 import { cn } from "@/lib/utils/client";
 import { Database } from "@/types/database.types";
-import { detachSkill } from "../actions/update-article";
+import { detachSkill } from "./actions/detach-skills";
 import { usePathname } from "next/navigation";
 
 interface RemoveButtonProps {
