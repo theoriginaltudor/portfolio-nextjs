@@ -57,7 +57,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         edit={editMode}
       />
 
-      <Skills skills={skills} edit={editMode} />
+      <Skills skills={skills} edit={editMode} articleId={project.id} />
 
       <ArticleBody
         className="max-w-2xl text-base w-full px-4 mt-8"

@@ -6,10 +6,15 @@ import { PlusCircleIcon } from "lucide-react";
 
 interface SkillsProps {
   skills: Tables<"skills">[];
+  articleId: number;
   edit?: boolean;
 }
 
-export const Skills: React.FC<SkillsProps> = ({ skills, edit = false }) => {
+export const Skills: React.FC<SkillsProps> = ({
+  skills,
+  edit = false,
+  articleId,
+}) => {
   const [list, setList] = useState<Tables<"skills">[]>(skills);
 
   return (
@@ -22,7 +27,13 @@ export const Skills: React.FC<SkillsProps> = ({ skills, edit = false }) => {
             className="inline-flex gap-2 items-center rounded-full px-3 py-1 text-sm bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
           >
             {skill.name}{" "}
-            {edit && <RemoveButton setList={setList} id={skill.id} />}
+            {edit && (
+              <RemoveButton
+                setList={setList}
+                id={skill.id}
+                articleId={articleId}
+              />
+            )}
           </span>
         ))}
         {edit && (

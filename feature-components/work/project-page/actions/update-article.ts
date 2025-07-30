@@ -11,22 +11,11 @@ export const updateArticle = async (formData: FormData, path: string): Promise<{
       return { success: false };
     }
 
-    const { title, long_description, skillId, id } = Object.fromEntries(formData.entries());
+    const { title, long_description, id } = Object.fromEntries(formData.entries());
     const articleId = Number(id);
     const supabase = await createClient();
 
-    // Check if we're updating skills or article content
-    if (skillId) {
-      // Route 1: Update skills (articles_skills table)
-      const parsedSkillId = Number(skillId);
-      if (isNaN(parsedSkillId)) {
-        throw new Error("Invalid skillId: must be a number");
-      }
-      await updateSkill(parsedSkillId, articleId, supabase);
-    } else {
-      // Route 2: Update article content (articles table)
-      await updateArticleContent({ title, long_description }, articleId, supabase);
-    }
+    await updateArticleContent({ title, long_description }, articleId, supabase);
 
     revalidatePath(path);
     return { success: true };
@@ -61,18 +50,32 @@ const updateArticleContent = async (
   }
 }
 
-const updateSkill = async (
-  skillId: number,
-  articleId: number,
-  supabase: Awaited<ReturnType<typeof createClient>>
-) => {
-  const { error } = await supabase
-    .from("articles_skills")
-    .delete()
-    .eq("article_id", articleId)
-    .eq("skill_id", skillId);
 
-  if (error) {
-    throw new Error(`Failed to remove skill from article: ${error.message}`);
+export const detachSkill = async (formData: FormData, path: string): Promise<{ success: boolean }> => {
+  try {
+    const skillIdRaw = formData.get("skillId");
+    const articleIdRaw = formData.get("articleId");
+    if (!skillIdRaw || !articleIdRaw) {
+      throw new Error("Both skillId and articleId are required");
+    }
+    const skillId = Number(skillIdRaw);
+    const articleId = Number(articleIdRaw);
+    if (isNaN(articleId) || isNaN(skillId)) {
+      throw new Error("Invalid articleId or skillId: must be a number");
+    }
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from("articles_skills")
+      .delete()
+      .eq("article_id", articleId)
+      .eq("skill_id", skillId);
+    if (error) {
+      throw new Error(`Failed to remove skill from article: ${error.message}`);
+    }
+    revalidatePath(path);
+    return { success: true };
+  } catch (error) {
+    console.error("Error in detachSkill:", error);
+    return { success: false };
   }
 }
