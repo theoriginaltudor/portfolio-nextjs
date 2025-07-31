@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Tables } from "@/types/database.types";
 import { RemoveButton } from "./remove-button";
-import { PlusCircleIcon } from "lucide-react";
+import { AddForm } from "./add-button";
+import { useUpdateSkills } from "./useSkills";
 
 interface SkillsProps {
   skills: Tables<"skills">[];
@@ -15,7 +16,8 @@ export const Skills: React.FC<SkillsProps> = ({
   edit = false,
   articleId,
 }) => {
-  const [list, setList] = useState<Tables<"skills">[]>(skills);
+  const { list, removeSkill, addSkill, addNewSkill, removeError, addError } =
+    useUpdateSkills(skills, articleId);
 
   return (
     <div className="max-w-2xl w-full px-4 mt-8">
@@ -29,17 +31,19 @@ export const Skills: React.FC<SkillsProps> = ({
             {skill.name}{" "}
             {edit && (
               <RemoveButton
-                setList={setList}
                 id={skill.id}
-                articleId={articleId}
+                handleClick={removeSkill}
+                error={removeError}
               />
             )}
           </span>
         ))}
         {edit && (
-          <span className="inline-flex gap-2 rounded-full p-1 text-sm bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
-            <PlusCircleIcon />
-          </span>
+          <AddForm
+            addSkill={addSkill}
+            addNewSkill={addNewSkill}
+            error={addError}
+          />
         )}
       </div>
     </div>
