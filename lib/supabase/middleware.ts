@@ -1,6 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { hasEnvVars } from "../utils";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -9,7 +8,8 @@ export async function updateSession(request: NextRequest) {
 
   // If the env vars are not set, skip middleware check. You can remove this
   // once you setup the project.
-  if (!hasEnvVars) {
+  if (!(process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY)) {
     return supabaseResponse;
   }
 

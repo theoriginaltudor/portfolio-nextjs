@@ -8,6 +8,7 @@ import { buildImageUrls } from "@/feature-components/work/project-page/hooks/bui
 import { createClient } from "@/lib/supabase/server";
 import { Skills } from "@/feature-components/work/project-page/skills";
 import { ArticleBody } from "@/feature-components/work/project-page/article-body";
+import { checkAuth } from "@/lib/utils/server";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -45,17 +46,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     console.warn("No skills found for project:", project.id);
   }
 
+  const editMode = await checkAuth();
+
   return (
     <main className="flex flex-col items-center flex-1 w-full">
       <ProjectImageHeader
-        project={project}
+        title={project.title}
         id={project.id}
         image={imageUrls[0]}
+        edit={editMode}
       />
 
-      <Skills skills={skills.map((s) => s.name)} />
+      <Skills skills={skills} edit={editMode} articleId={project.id} />
 
-      <ArticleBody className="max-w-2xl text-base w-full px-4 mt-8">
+      <ArticleBody
+        className="max-w-2xl text-base w-full px-4 mt-8"
+        edit={editMode}
+        projectId={project.id}
+      >
         {project.long_description}
       </ArticleBody>
 

@@ -1,22 +1,22 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/client";
 import { useMemo } from "react";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { useSubmittingStore } from "@/feature-components/chat-box/submitting-store";
 
 interface AvatarWithShadowProps {
   size?: "big" | "small";
-  isLoading?: boolean;
 }
 
 const supabase = createClient();
 
 export const AvatarWithShadow: React.FC<AvatarWithShadowProps> = ({
   size = "big",
-  isLoading,
 }) => {
+  const { loading } = useSubmittingStore();
   const avatarUrl = useMemo(() => {
     const { data } = supabase.storage
       .from("portfolio-images")
@@ -42,7 +42,7 @@ export const AvatarWithShadow: React.FC<AvatarWithShadowProps> = ({
           aria-hidden
           className={cn(
             "pointer-events-none absolute inset-0 rounded-full z-[-1] shadow-[0_0_0_8px_rgba(255,255,255,0.2)] before:content-[''] before:absolute before:inset-[-8px] before:rounded-full before:bg-[conic-gradient(from_0deg_at_50%_50%,#ff0080_0%,#7928ca_25%,#0070f3_50%,#00ffb8_75%,#ff0080_100%)] before:blur-[12px] before:opacity-60 before:z-[-2]",
-            isLoading && "animate-pulse"
+            loading && "animate-pulse"
           )}
         />
       </div>

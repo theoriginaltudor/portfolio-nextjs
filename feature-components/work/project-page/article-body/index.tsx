@@ -1,10 +1,15 @@
+"use client";
+
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSanitize from "rehype-sanitize";
+import { ArticleEditForm } from "./article-edit-form";
 
 export interface ArticleProps extends React.HTMLAttributes<HTMLElement> {
   children: string;
+  edit?: boolean;
+  projectId?: number;
 }
 
 const markdownComponents = {
@@ -58,16 +63,25 @@ const markdownComponents = {
   ),
 };
 
-export function ArticleBody({ children, ...props }: ArticleProps) {
+export function ArticleBody({
+  children,
+  projectId,
+  edit = false,
+  ...props
+}: ArticleProps) {
   return (
     <article {...props}>
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeSanitize]}
-        components={markdownComponents}
-      >
-        {children}
-      </ReactMarkdown>
+      {edit ? (
+        <ArticleEditForm projectId={projectId}>{children}</ArticleEditForm>
+      ) : (
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeSanitize]}
+          components={markdownComponents}
+        >
+          {children}
+        </ReactMarkdown>
+      )}
     </article>
   );
 }

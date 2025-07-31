@@ -34,3 +34,15 @@ export async function loginUser(formData: FormData) {
   revalidatePath('/', 'layout')
   redirect('/')
 }
+
+export async function logoutUser(pathname: string) {
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    redirect('/error')
+  }
+
+  redirect(pathname)
+}

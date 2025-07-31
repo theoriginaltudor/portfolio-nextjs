@@ -1,19 +1,17 @@
 "use client";
 
 import { useFormStatus } from "react-dom";
-import { useEffect } from "react";
+import { useSubmittingStore } from "./submitting-store";
+import { memo, useEffect } from "react";
 
-export function SubmitButton({
-  onPendingChange,
-  disabled,
-}: {
-  onPendingChange: (pending: boolean) => void;
-  disabled: boolean;
-}) {
+const SubmitButton: React.FC<{ disabled: boolean }> = ({ disabled }) => {
   const { pending } = useFormStatus();
+  const { setLoading } = useSubmittingStore();
   useEffect(() => {
-    onPendingChange(pending);
-  }, [pending, onPendingChange]);
+    setLoading(pending);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pending]);
+
   return (
     <button
       type="submit"
@@ -24,4 +22,6 @@ export function SubmitButton({
       {pending ? "Sending..." : "Send"}
     </button>
   );
-}
+};
+
+export const MemoizedSubmitButton = memo(SubmitButton);

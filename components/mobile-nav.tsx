@@ -5,7 +5,7 @@ import { Drawer } from "@/components/ui/drawer";
 import { Menu } from "lucide-react";
 import { NavigationMenu } from "@/components/navigation-menu";
 
-export function MobileNav() {
+export const MobileNav = () => {
   const [open, setOpen] = React.useState(false);
   return (
     <div className="md:hidden">
@@ -26,4 +26,4 @@ export function MobileNav() {
       </Drawer>
     </div>
   );
-}
+};
