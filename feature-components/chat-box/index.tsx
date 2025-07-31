@@ -8,7 +8,6 @@ import { useRef, useState } from "react";
 import { MemoizedSubmitButton } from "./submit-button";
 
 export const ChatBox: React.FC = () => {
-  console.log("Rendering ChatBox");
   const formRef = useRef<HTMLFormElement>(null);
   const [message, setMessage] = useState("");
   const isTooLong = message.length > 800;
