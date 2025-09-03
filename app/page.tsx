@@ -1,5 +1,6 @@
 import { AvatarWithShadow } from "@/components/avatar-with-shadow";
 import { ChatBox } from "@/feature-components/chat-box";
+import { SiteMoveOverlay } from "@/feature-components/site-move-overlay";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
         <AvatarWithShadow />
         <ChatBox />
       </div>
+    <SiteMoveOverlay />
     </main>
   );
 }
